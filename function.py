@@ -27,10 +27,21 @@ def Encurvadura(x):
 
 
 def platesTheory():
-	# https://en.wikipedia.org/wiki/Kirchhoff%E2%80%9nLove_plate_theory
+	# SOURCE:
+	# Theory and Analysis of Elastic Plates and Shells, 
+	# J. N. Reddy (pag.261)
+
+
+	
+	w0 = (Wh + qn)*sin(beta_n*y)
+
+
+
+''' ===================== SCRAP ===================== '''
+
 	# Isotropic quasistatic Kirchhoff-Love plates
 
-	ne = 0.355 # Poisson's ratio (copper)
+	'''ne = 0.355 # Poisson's ratio (copper)
 	E = 117e9 # elastcity module ·[Pa] (copper)
 	n = 3
 
@@ -49,4 +60,4 @@ def platesTheory():
 		sigma = np.linalg.solve(C,strain)
 		print(sigma)
 
-		cond = sigma - sigma_old < 1e6
+		cond = sigma - sigma_old < 1e6'''
