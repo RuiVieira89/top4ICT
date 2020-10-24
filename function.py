@@ -29,15 +29,45 @@ def Encurvadura(x):
 def platesTheory():
 	# SOURCE:
 	# Theory and Analysis of Elastic Plates and Shells, 
-	# J. N. Reddy (pag.261)
+	# J. N. Reddy (pag.222)
+	# Navier Solutions
+
+	ne = 0.355 # Poisson's ratio (copper) 			PARAMETER
+	E = 117e9 # elastcity module [Pa] (copper)  	PARAMETER
+	h = 5/1000 # plate thickness [m] 				PARAMETER
+	a = 100/1000 # plate x-length [m] 				PARAMETER
+	b = 100/1000 # plate y-length [m] 				PARAMETER
+	s = b/a
+	alfa = 111e-6 # thermal diffusivity [m/s]
+	Q0 = 10 # point force [N]
+
+	m = 1
+	n = 1
 
 
-	
-	w0 = (Wh + qn)*sin(beta_n*y)
+	## Rigidity matrix
+	Dconst = (E*h**3)/(12*(1-ne**2))
+	D = np.eye(6)
+	D[0,0] = D[1,1] = Dconst
+	D[0,1] = ne*Dconst
+	D[-1,-1] = (1-ne)*Dconst/2
+
+	k = 0 # spring coeff [N/m]
+	k_ = (k*b**4)/(Dconst*np.pi**4) 
+
+	## Thermal stresses
+	T = 0 # Temperature [K]
+	del_T = (T*alfa*Dconst*(1+ne)*np.pi**2)/b**2
+
+	qmn = 4*Q0/a*b
+
+	Wmn = (b**4)/(Dconst*np.pi**4)*(qmn + del_T*(m**2 * s**2 + n**2))/((m**2 * s**2 + n**2)**2 + k_)
+
+	print(Wmn)
 
 
 
-''' ===================== SCRAP ===================== '''
+	''' ===================== SCRAP ===================== '''
 
 	# Isotropic quasistatic Kirchhoff-Love plates
 
