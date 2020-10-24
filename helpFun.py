@@ -24,8 +24,8 @@ def funVar():
 	b = np.arange(10/100,f+f/Nx,f/Nx) # plate y-length [m] 				PARAMETER
 
 	A = np.array( np.meshgrid(ne, E, h, a, b) )
-	A = np.reshape(A, (A.shape[0], A.shape[1]*A.shape[2]*A.shape[3]*A.shape[4]*A.shape[4]))
+	A = np.reshape(A, (A.shape[0], -1))
 
 
-	return Nx, Ny, A #Nx, Ny, ne, E, h, a, b
+	return Nx, Ny, A 
 

@@ -23,6 +23,7 @@ def optim():
 	plt.scatter(E,w)
 	plt.pause(0.1)
 
-	print(w)
+	print(A.shape)
+	print(w.shape)
 
 

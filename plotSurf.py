@@ -8,7 +8,12 @@ from helpFun import funVar
 
 def plotSurf(A, minimum):
 
-	[Nx, Ny, ne, E, h, a, b] = funVar()
+	[Nx, Ny, A] = funVar()
+	ne = A[0]
+	E = A[1]
+	h = A[2]
+	a = A[3]
+	b = A[4]
 
 	x = np.arange(0,a+a/Nx,a/Nx)
 	y = np.arange(0,b+b/Ny,b/Ny)
