@@ -4,13 +4,14 @@ import matplotlib.pyplot as plt
 from scipy.optimize import minimize
 
 from function import function
+from helpFun import funVar
 
 def plotSurf(A, minimum):
 
+	[Nx, Ny, ne, E, h, a, b] = funVar()
 
-	delta = 0.1
-	G = 10
-	x = y = np.arange(0, G, delta)
+	x = np.arange(0,a,a/Nx)
+	y = np.arange(0,b,b/Ny)
 	X,Y = np.meshgrid(x, y)
 	Z = function([X, Y])
 
