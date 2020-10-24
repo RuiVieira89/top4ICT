@@ -3,11 +3,12 @@ import numpy as np
 #import matplotlib.pyplot as plt
 
 from plotSurf import plotSurf
-
+from optmization import optim
 
 def main():
 
-	plotSurf([], [])
+	#plotSurf([], [])
+	optim()
 	input('\nEnd')
 	
 
