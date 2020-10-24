@@ -10,13 +10,13 @@ def plotSurf(A, minimum):
 
 	[Nx, Ny, ne, E, h, a, b] = funVar()
 
-	x = np.arange(0,a,a/Nx)
-	y = np.arange(0,b,b/Ny)
+	x = np.arange(0,a+a/Nx,a/Nx)
+	y = np.arange(0,b+b/Ny,b/Ny)
 	X,Y = np.meshgrid(x, y)
 	Z = function([X, Y])
 
 	plt.ion()
-	fig = plt.figure(1, figsize=(10,8), clear=True)
+	fig = plt.figure(1, figsize=(8*a/b,6), clear=True)
 	ax = fig.add_subplot(1, 1, 1)
 
 	im = ax.contourf(X, Y, Z, levels=100)

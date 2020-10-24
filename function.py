@@ -3,7 +3,7 @@ import numpy as np
 
 from helpFun import funVar
 
-def function(x):
+def function(X):
 	# SOURCE:
 	# Theory and Analysis of Elastic Plates and Shells, 
 	# J. N. Reddy (pag.222)
@@ -11,11 +11,11 @@ def function(x):
 
 	[Nx, Ny, ne, E, h, a, b] = funVar()
 
-	x = x[0]
-	y = x[1]
+	x = X[0]
+	y = X[1]
 	s = b/a
 	alfa = 111e-6 # thermal diffusivity [m/s]
-	Q0 = 10000 # point force [N]
+	Q0 = 1000 # point force [N]
 
 	m = -1
 	n = -1
@@ -39,7 +39,7 @@ def function(x):
 	w0 = 0
 	w0_old = 0
 	cond = False
-	while cond is False:
+	while cond == False:
 
 		m += 2
 		n += 2
@@ -49,8 +49,9 @@ def function(x):
 
 		w0 = w0 + Wmn*np.sin(m*np.pi*x/a)*np.sin(n*np.pi*y/b)
 		
-		cond = (w0 - w0_old)/w0 < 1e-12
-		w0_old = w0
+		cond = np.nanmax((w0 - w0_old)/w0) < 1e-8
+		w0_old = w0.copy()
+
 
 	return w0
 
