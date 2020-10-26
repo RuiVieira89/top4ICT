@@ -23,7 +23,7 @@ def funVar():
 	a = np.arange(10/100,f+f/Nx,f/Nx) # plate x-length [m] 				PARAMETER
 	b = np.arange(10/100,f+f/Nx,f/Nx) # plate y-length [m] 				PARAMETER
 
-	A = np.array( np.meshgrid(ne, E, h, a, b) )
+	A = np.array( np.meshgrid(ne, E, h, a, b) ) # mix the variables
 	A = np.reshape(A, (A.shape[0], -1))
 
 

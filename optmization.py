@@ -18,12 +18,12 @@ def optim():
 
 	w = function([a/2, b/2])
 
+	print(w)
+
 
 	plt.ion()
 	plt.scatter(E,w)
 	plt.pause(0.1)
 
-	print(A.shape)
-	print(w.shape)
 
 
