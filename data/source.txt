@@ -1,0 +1,14 @@
+
+NOTE: 'Yield Strength low', 'Yield Strength high' == 'Strength low', 'Strength high'
+common_materials_ashby.html  
+materials_strength_density.tsv  
+Common_materials.tsv          
+https://zenodo.org/record/1403248#.X5hWfYbLdhE
+
+phonon_dielectric folder
+https://figshare.com/articles/Phonon_Dielectric_Materials_Project_Dataset/7221548
+================================================================================
+ becs 	e 	array 	nsites×3×3 	Born effective charges
+eps_electronic 	− 	array 	3×3 	Electronic contribution to the dielectric permittivity tensor
+eps_total 	− 	array 	3×3 	Total dielectric permittivity tensor
+cnsr_breaking 	e 	number 	− 	Maximum breaking of the CNSR 

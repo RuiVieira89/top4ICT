@@ -9,12 +9,7 @@ from helpFun import funVar
 def optim():
 	# w0 = f(ne,E,h,a,b)
 
-	[Nx, Ny, A] = funVar()
-	ne = A[0]
-	E = A[1]
-	h = A[2]
-	a = A[3]
-	b = A[4]
+	[Nx, Ny, ne, E, h, a, b] = funVar()
 
 	w = function([a/2, b/2])
 

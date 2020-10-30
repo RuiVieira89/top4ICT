@@ -1,0 +1,50 @@
+Material	Category	Density low	Density high	Strength low	Strength high
+Flexible Foam VLD	Foams	16	35	0.01	0.12
+Flexible Foam LD	Foams	38	70	0.02	0.3
+Flexible Foam MD	Foams	75	115	0.05	0.7
+Rigid Foam LD	Foams	36	70	0.3	1.7
+Rigid Foam MD	Foams	78	165	0.4	3.5
+Rigid Foam HD	Foams	170	470	0.8	12
+Isoprene	Elastomers	930	940	20	25
+Butyl rubber	Elastomers	900	920	2	3
+EVA	Elastomers	945	955	12	18
+Neoprene	Elastomers	1230	1250	3.4	24
+Polyurethane	Elastomers	1020	1250	25	51
+Silicone elastomers	Elastomers	1300	1800	2.4	5.5
+Leather	Natural materials	810	1050	5	10
+Wood (parallel)	Natural materials	600	800	30	70
+Wood (perpendicular)	Natural materials	600	800	2	6
+Bamboo	Natural materials	600	800	35	44
+Cork	Natural materials	120	240	0.3	1.5
+Polyester	Polymers	1040	1400	33	40
+Epoxies	Polymers	1110	1400	36	71.7
+PMMA	Polymers	1160	1220	53	72.4
+PS	Polymers	1040	1050	28.7	56.2
+PA	Polymers	1120	1140	50	94.8
+PC	Polymers	1140	1210	59	70
+PE	Polymers	939	960	17.9	29
+PET	Polymers	1290	1400	56.5	62.3
+PP	Polymers	890	910	20.7	37.2
+PTFE	Polymers	2140	2200	15	25
+PEEK	Polymers	1300	1320	65	95
+Brick	Nontechnical ceramics	1900	2100	50	140
+Stone	Nontechnical ceramics	2500	3000	34	248
+Concrete	Nontechnical ceramics	2200	2600	32	60
+Glass	Nontechnical ceramics	2170	2800	264	2129
+GFRP	Composites	1750	1970	110	192
+CFRP	Composites	1500	1600	550	1050
+Aluminun/silicon carbide	Composites	2660	2900	280	324
+Boron carbide	Technical ceramics	2350	2550	2583	5687
+Silicon nitride	Technical ceramics	3000	3290	524	5500
+Silicon carbide	Technical ceramics	3000	3210	1000	5250
+Alumina	Technical ceramics	3500	3980	690	5500
+Tungsten carbide	Technical ceramics	15300	15900	3347	6833
+Lead alloys	Metals	10000	11400	8	14
+Cu alloys	Metals	8930	8940	30	500
+Steels	Metals	7600	8100	170	1155
+Ni alloys	Metals	8830	8950	70	1100
+Ti Alloys	Metals	4400	4800	250	1245
+Al alloys	Metals	2500	2900	30	500
+Mg alloys	Metals	1740	1950	70	400
+Cast iron	Metals	7050	7250	215	790
+Zn alloys	Metals	4950	7000	80	450

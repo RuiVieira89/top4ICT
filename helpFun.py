@@ -1,31 +1,50 @@
 
 import numpy as np 
+import pandas as pd 
 
 def funVar():
+
+	HOME_FOLDER = '/home/rui/dev/top4ICT'
+
+	#df_phonon = pd.read_csv(HOME_FOLDER+'/data/phonon_dielectric/phonon_dielectric_mp.csv')
+
+	df_common = pd.read_csv(HOME_FOLDER+'/data/Common_materials.tsv', sep='\t')
+	df_mat_dens = pd.read_csv(HOME_FOLDER+'/data/materials_strength_density.tsv', sep='\t')
+
+
+	df = pd.merge(df_common, df_mat_dens, on="Material")
+
+	df_use = df[['Material', 
+		'Category_x',
+		'Young Modulus low', 'Young Modulus high',
+		'Density low_y', 'Density high_y',
+		'Resistivity low', 'Resistivity high',
+		'Yield Strength low', 'Yield Strength high']]
+
+
 	#Discretization
 
-	Nx = 10 
-	Ny = 10
+	Nx = df_use.shape[0]
+	Ny = df_use.shape[0]
 
-	'''ne = 0.33 # Poisson's ratio  					PARAMETER
-	E = 6.9e10 # elastcity module [Pa]   			PARAMETER
-	h = 5/1000 # plate thickness [m] 				PARAMETER
-	a = 300/1000 # plate x-length [m] 				PARAMETER
-	b = 300/1000 # plate y-length [m] 				PARAMETER'''
+
+
 
 	f =0.9 # final point
 	ne = np.arange(0.1,f+f/Nx,f/Nx) # Poisson's ratio  					PARAMETER
-	f = 0.9e11
-	E = np.arange(1e10,f+f/Nx,f/Nx) # elastcity module [Pa]   			PARAMETER
+	# Young module [Pa]   			PARAMETER	
+	E = np.array((df_use['Young Modulus high'] - df_use['Young Modulus low'])/2) 
+
 	f = 10/1000
 	h = np.arange(1/1000,f+f/Nx,f/Nx) # plate thickness [m] 				PARAMETER
-	f = 100/100
-	a = np.arange(10/100,f+f/Nx,f/Nx) # plate x-length [m] 				PARAMETER
-	b = np.arange(10/100,f+f/Nx,f/Nx) # plate y-length [m] 				PARAMETER
+	#f = 100/100
+	#a = np.arange(10/100,f+f/Nx,f/Nx) # plate x-length [m] 				PARAMETER
+	#b = np.arange(10/100,f+f/Nx,f/Nx) # plate y-length [m] 				PARAMETER
 
-	A = np.array( np.meshgrid(ne, E, h, a, b) ) # mix the variables
+	A = np.array( np.meshgrid(*[ne, E], h) ) # mix the variables
 	A = np.reshape(A, (A.shape[0], -1))
 
 
-	return Nx, Ny, A 
+	return Nx, Ny, A[0], A[1], A[2], 300/1000, 300/1000
 
+	'''return: Nx, Ny, ne, E, h, a, b'''

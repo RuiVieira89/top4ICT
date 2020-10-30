@@ -9,12 +9,7 @@ def function(X):
 	# J. N. Reddy (pag.222)
 	# Navier Solutions
 
-	[Nx, Ny, A] = funVar()
-	ne = A[0]
-	E = A[1]
-	h = A[2]
-	a = A[3]
-	b = A[4]
+	[Nx, Ny, ne, E, h, a, b] = funVar()
 
 	x = X[0]
 	y = X[1]
