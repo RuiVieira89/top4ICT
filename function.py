@@ -52,8 +52,10 @@ def function(X):
 		cond = np.nanmax((w0 - w0_old)/w0) < 1e-8
 		w0_old = w0.copy()
 
+	sigma_max = (6*qmn*2*b**2)/(np.pi**2*h**2*(s**2+1)**2)*(s**2+ne) # maximum tension [Pa]
 
-	return w0
+
+	return w0, sigma_max
 
 
 def Encurvadura(x):
