@@ -21,13 +21,14 @@ def funVar():
 		'Resistivity low', 'Resistivity high',
 		'Yield Strength low', 'Yield Strength high']]
 
+	df_use['Young Modulus low'] = df_use['Young Modulus low']*1e6
+	df_use['Young Modulus high'] = df_use['Young Modulus high']*1e6
+	df_use['Yield Strength low'] = df_use['Yield Strength low']*1e6
+	df_use['Yield Strength high'] = df_use['Yield Strength high']*1e6
 
 	#Discretization
-
 	Nx = df_use.shape[0]
 	Ny = df_use.shape[0]
-
-
 
 
 	f =0.9 # final point
@@ -40,11 +41,13 @@ def funVar():
 	#f = 100/100
 	#a = np.arange(10/100,f+f/Nx,f/Nx) # plate x-length [m] 				PARAMETER
 	#b = np.arange(10/100,f+f/Nx,f/Nx) # plate y-length [m] 				PARAMETER
+	a = 300/1000
+	b = 300/1000
 
 	A = np.array( np.meshgrid(*[ne, E], h) ) # mix the variables
 	A = np.reshape(A, (A.shape[0], -1))
 
 
-	return Nx, Ny, A[0], A[1], A[2], 300/1000, 300/1000
+	return Nx, Ny, A[0], A[1], A[2], a, b
 
 	'''return: Nx, Ny, ne, E, h, a, b'''
