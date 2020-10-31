@@ -2,9 +2,11 @@
 import numpy as np 
 import pandas as pd 
 
+import os
+
 def funVar():
 
-	HOME_FOLDER = '/home/rui/dev/top4ICT'
+	HOME_FOLDER = os.getcwd()
 
 	#df_phonon = pd.read_csv(HOME_FOLDER+'/data/phonon_dielectric/phonon_dielectric_mp.csv')
 
