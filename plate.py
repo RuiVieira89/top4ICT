@@ -9,24 +9,25 @@ from helpFun import funVar
 from plotSurf import bubbles
 from plotSurf import plotSurf
 
+
 def main():
 
 	#plotSurf([], [])
 
 	[Nx, Ny, ne, E, h, a, b] = funVar()
 	w, sigma_max = function([a/2, b/2])
-	
+
 	# DataFrame
-	x = pd.DataFrame(h)
-	x.name = 'Thickness [m]'
-	y = pd.DataFrame(E)
-	y.name = 'Young Modulus [Pa]'
+	x = pd.DataFrame(1000*h)
+	x.name = 'Thickness [mm]'
+	y = pd.DataFrame(E/1e6)
+	y.name = 'Young Modulus [MPa]'
 	z = pd.DataFrame(ne)
 	z.name = 'Poisson Ratio'
-	f = pd.DataFrame(w)
-	f.name = 'Bending [m]'
-	narea = pd.DataFrame(sigma_max)
-	narea.name = 'Max Tension [Pa]'
+	f = pd.DataFrame(1000*w)
+	f.name = 'Bending [mm]'
+	narea = pd.DataFrame(sigma_max/1e6)
+	narea.name = 'Max Tension [MPa]'
 
 	print(h)
 

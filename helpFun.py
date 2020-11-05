@@ -52,4 +52,5 @@ def funVar():
 
 	return Nx, Ny, A[0], A[1], A[2], a, b
 
+
 	'''return: Nx, Ny, ne, E, h, a, b'''

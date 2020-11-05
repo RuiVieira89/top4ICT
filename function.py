@@ -54,7 +54,6 @@ def function(X):
 
 	sigma_max = (6*qmn*2*b**2)/(np.pi**2*h**2*(s**2+1)**2)*(s**2+ne) # maximum tension [Pa]
 
-
 	return w0, sigma_max
 
 
