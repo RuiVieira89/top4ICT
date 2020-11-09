@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import os
 
 from function import function
 from helpFun import funVar
@@ -29,8 +30,6 @@ def main():
 	narea = pd.DataFrame(sigma_max/1e6)
 	narea.name = 'Max Tension [MPa]'
 
-	print(h)
-
 	bubbles(x, y, z, f, narea)
 	plt.show()
 	input('\nEnd')
@@ -38,4 +37,5 @@ def main():
 
 
 if __name__ == "__main__":
+
 	main()

@@ -58,10 +58,10 @@ def bubbles(x, y, z, f, narea):
     
     def doCrosses(x, y, z, f, area, cond, mark, color):
         assemble_ = [x, y, z, f, area]
-        assemble = pd.concat(assemble_, axis=1, sort=False)
-        assemble = assemble[assemble.iloc[:,-1:] < cond]    
-
+        assemble = pd.concat(assemble_, axis=1, sort=False, ignore_index=True)
+        assemble = assemble[assemble.loc[:,4] < cond] 
         [xn, yn, zn, fn, arean] = assemble
+
         ax.scatter(assemble[xn],assemble[yn],assemble[zn],
                    marker=mark,color=color)
 
@@ -79,7 +79,10 @@ def bubbles(x, y, z, f, narea):
     
     #fig.suptitle(['color: ',f.name, ' size: ', narea.name]) 
 
-    pcm = ax.scatter(x, y, z, c=f, s=1000*area, cmap="RdBu_r", alpha=0.4)
+    print(x, '\n\n',y, '\n\n',z)
+    #exit(0)
+
+    pcm = ax.scatter(x, y, z, c=f, s=100*area, cmap="RdBu_r", alpha=0.4)
     # RdBu_r
     # nipy_spectral
     cmap = fig.colorbar(pcm, ax=ax)
@@ -87,9 +90,9 @@ def bubbles(x, y, z, f, narea):
     
     # plots crosses
     cond = 0.5
-    doCrosses(x, y, z, f, area, cond, 'x', 'k')    
-    #doCrosses(x, y, z, f, area, cond, '+', 'r') 
-    #plots lim f
+    # doCrosses(x, y, z, f, area, cond, 'x', 'k')    
+    # doCrosses(x, y, z, f, area, cond, '+', 'r') 
+    # plots lim f
     
 
 def plotOptm(w):

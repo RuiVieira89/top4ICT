@@ -13,8 +13,8 @@ def funVar():
 	df_common = pd.read_csv(HOME_FOLDER+'/data/Common_materials.tsv', sep='\t')
 	df_mat_dens = pd.read_csv(HOME_FOLDER+'/data/materials_strength_density.tsv', sep='\t')
 
-
 	df = pd.merge(df_common, df_mat_dens, on="Material")
+	#df = df[df['Category_x']=='Metals']
 
 	df_use = df[['Material', 
 		'Category_x',

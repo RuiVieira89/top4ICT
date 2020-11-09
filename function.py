@@ -11,6 +11,7 @@ def function(X):
 
 	[Nx, Ny, ne, E, h, a, b] = funVar()
 
+
 	x = X[0]
 	y = X[1]
 	s = b/a
