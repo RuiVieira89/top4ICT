@@ -29,6 +29,7 @@ def main():
 	f.name = 'Bending [mm]'
 	narea = pd.DataFrame(sigma_max/1e6)
 	narea.name = 'Max Tension [MPa]'
+	
 
 	bubbles(x, y, z, f, narea)
 	plt.show()
