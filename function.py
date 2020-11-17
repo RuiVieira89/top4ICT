@@ -16,7 +16,7 @@ def function(X):
 	y = X[1]
 	s = b/a
 	alfa = 111e-6 # thermal diffusivity [m/s]
-	Q0 = 3000 # point force [N]
+	Q0 = 3000*a*b # point force [N]
 
 	m = -1
 	n = -1
