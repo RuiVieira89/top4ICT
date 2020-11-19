@@ -46,8 +46,59 @@ def funVar():
 	a = 300/1000
 	b = 300/1000
 
-	A = np.array( np.meshgrid(*[ne, E], h) ) # mix the variables
-	A = np.reshape(A, (A.shape[0], -1))
+	# A = np.array( np.meshgrid(*[ne, E], h) ) # mix the variables
+	# A = np.reshape(A, (A.shape[0], -1))
 
-	return Nx, Ny, A[0], A[1], A[2], a, b
+	return Nx, Ny, ne[45], E[45], h, a, b
 	'''return: Nx, Ny, ne, E, h, a, b'''
+
+	#==== Material index ====#
+	# 0            Flexible Foam VLD
+	# 1             Flexible Foam LD
+	# 2             Flexible Foam MD
+	# 3                Rigid Foam LD
+	# 4                Rigid Foam MD
+	# 5                Rigid Foam HD
+	# 6                     Isoprene
+	# 7                 Butyl rubber
+	# 8                          EVA
+	# 9                     Neoprene
+	# 10                Polyurethane
+	# 11         Silicone elastomers
+	# 12                     Leather
+	# 13             Wood (parallel)
+	# 14        Wood (perpendicular)
+	# 15                      Bamboo
+	# 16                        Cork
+	# 17                   Polyester
+	# 18                     Epoxies
+	# 19                        PMMA
+	# 20                          PS
+	# 21                          PA
+	# 22                          PC
+	# 23                          PE
+	# 24                         PET
+	# 25                          PP
+	# 26                        PTFE
+	# 27                        PEEK
+	# 28                       Brick
+	# 29                       Stone
+	# 30                    Concrete
+	# 31                       Glass
+	# 32                        GFRP
+	# 33                        CFRP
+	# 34    Aluminun/silicon carbide
+	# 35               Boron carbide
+	# 36             Silicon nitride
+	# 37             Silicon carbide
+	# 38                     Alumina
+	# 39            Tungsten carbide
+	# 40                 Lead alloys
+	# 41                   Cu alloys
+	# 42                      Steels
+	# 43                   Ni alloys
+	# 44                   Ti Alloys
+	# 45                   Al alloys
+	# 46                   Mg alloys
+	# 47                   Cast iron
+	# 48                   Zn alloys
