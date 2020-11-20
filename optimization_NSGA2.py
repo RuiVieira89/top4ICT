@@ -45,5 +45,6 @@ res = minimize(problem,
 	seed=1)
 
 plot = Scatter()
-plot.add(res.F, color="red")
+plot.add(res.pop.get("X"), color="red")
+# plot.add(res.X, color="red")
 plot.show()

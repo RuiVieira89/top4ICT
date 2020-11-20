@@ -11,13 +11,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 from pymoo.model.problem import Problem
 
+# def function(x):
+# 	return x[0]**2-x[1], x[0]-x[2]
+
 class MyProblem(Problem):
 
 	def __init__(self):
 		super().__init__(n_var=3, 
 			n_obj=2,
 			n_constr=2,
-			xl=np.array([0,0,0]),
+			xl=np.array([0.25,0.25,0.001]),
 			xu=np.array([0.5,0.5,0.01]))
 
 	def _evaluate(self, X, out, *args, **kwargs):
@@ -31,9 +34,10 @@ problem = MyProblem()
 
 from pymoo.algorithms.nsga2 import NSGA2
 from pymoo.factory import get_sampling, get_crossover, get_mutation
+from pymoo.algorithms.so_genetic_algorithm import GA
 
 algorithm = NSGA2(
-	pop_size=49,
+	pop_size=20,
 	n_offsprings=10,
 	sampling=get_sampling("real_random"),
 	crossover=get_crossover("real_sbx", prob=0.9, eta=15),
@@ -97,6 +101,8 @@ plot.do()
 plot.apply(lambda ax: ax.set_xlim(0, 0.5))
 plot.apply(lambda ax: ax.set_ylim(0, 0.5))
 plot.show()
+
+exit(0)
 
 # Objective Space
 plot = Scatter(title = "Objective Space")
