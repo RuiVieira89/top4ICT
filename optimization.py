@@ -1,6 +1,8 @@
 # TIPS:: https://github.com/msu-coinlab/pymoo/blob/master/doc/source/getting_started.ipynb
 # DOCS:: https://pyomo.readthedocs.io/_/downloads/en/stable/pdf/
 
+# RUN:: python optimization.py | tee log.txt
+
 import warnings
 warnings.simplefilter(action='ignore')
 
@@ -12,7 +14,7 @@ import numpy as np
 from pymoo.model.problem import Problem
 
 # def function(x):
-# 	return x[0]**2-x[1], x[0]-x[2]
+# 	return x[0]**2, x[1]**2 
 
 class MyProblem(Problem):
 
@@ -20,14 +22,16 @@ class MyProblem(Problem):
 		super().__init__(n_var=3, 
 			n_obj=2,
 			n_constr=2,
-			xl=np.array([0.25,0.25,0.001]),
-			xu=np.array([0.5,0.5,0.01]))
+			xl=np.array([0.25, 0.25, 0.001]),
+			xu=np.array([0.5, 0.5, 0.01]),
+			elementwise_evaluation=True
+			)
 
 	def _evaluate(self, X, out, *args, **kwargs):
 		w, sigma_max = function(X) 
 
-		out["F"] = np.column_stack([w])
-		out["G"] = np.column_stack([sigma_max])
+		out["F"] = w # np.column_stack([w])
+		out["G"] = sigma_max # np.column_stack([sigma_max])
 
 
 problem = MyProblem()
@@ -37,7 +41,7 @@ from pymoo.factory import get_sampling, get_crossover, get_mutation
 from pymoo.algorithms.so_genetic_algorithm import GA
 
 algorithm = NSGA2(
-	pop_size=20,
+	pop_size=40,
 	n_offsprings=10,
 	sampling=get_sampling("real_random"),
 	crossover=get_crossover("real_sbx", prob=0.9, eta=15),
@@ -45,9 +49,17 @@ algorithm = NSGA2(
 	eliminate_duplicates=True
 )
 
-from pymoo.factory import get_termination
+from pymoo.util.termination.default import MultiObjectiveDefaultTermination
 
-termination = get_termination("n_gen", 40)
+termination = MultiObjectiveDefaultTermination(
+    x_tol=1e-8,
+    cv_tol=1e-6,
+    f_tol=0.0025,
+    nth_gen=5,
+    n_last=30,
+    n_max_gen=1000,
+    n_max_evals=100000
+)
 
 from pymoo.optimize import minimize
 
@@ -56,7 +68,8 @@ res = minimize(problem,
 	termination, 
 	seed=1, 
 	save_history=True, 
-	verbose=True)
+	verbose=True
+	)
 
 ''' === Object-Oriented Interface === '''
 
@@ -82,8 +95,6 @@ result = obj.result()
 
 
 
-
-
 ''' === derived Pareto set === '''
 
 from pymoo.visualization.scatter import Scatter
@@ -102,7 +113,6 @@ plot.apply(lambda ax: ax.set_xlim(0, 0.5))
 plot.apply(lambda ax: ax.set_ylim(0, 0.5))
 plot.show()
 
-exit(0)
 
 # Objective Space
 plot = Scatter(title = "Objective Space")

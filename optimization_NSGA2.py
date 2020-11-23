@@ -24,8 +24,8 @@ class MyProblem(Problem):
 	def _evaluate(self, x, out, *args, **kwargs):
 		w, sigma_max = function(x) 
 
-		out["F"] = w #np.column_stack([w])
-		out["G"] = sigma_max #np.column_stack([sigma_max])
+		out["F"] = np.column_stack([w])
+		out["G"] = np.column_stack([sigma_max])
 
 
 problem = MyProblem()
