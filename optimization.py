@@ -14,9 +14,15 @@ import numpy as np
 import pandas as pd
 import os
 
+## Density data
+HOME_FOLDER = os.getcwd()
 
-# def function(x):
-# 	return x[0]**2, x[2]**2 + x[1]**2
+df_common = pd.read_csv(HOME_FOLDER+'/data/Common_materials.tsv', sep='\t')
+df_mat_dens = pd.read_csv(HOME_FOLDER+'/data/materials_strength_density.tsv', sep='\t')
+df = pd.merge(df_common, df_mat_dens, on="Material")
+
+MaterialDensity = df['Density low_y'].loc[45]
+
 
 ## PLOTS
 N = 20
@@ -39,7 +45,10 @@ for func in [0, 1]:
 		i = PLOTS[j]
 		h = np.ones([N,N])*i
 		X,Y = np.meshgrid(x, y)
-		Z = function([X, Y, h])[func]
+		if func == 0:
+			Z = function([X, Y, h])[func]
+		else:
+			Z = X*Y*h*MaterialDensity
 
 		im = ax.contourf(X, Y, Z, levels=20)
 		text = ax.text(X.min()+0.1*X.min(), Y.min()+0.3*Y.min(), 
@@ -49,15 +58,8 @@ for func in [0, 1]:
 		j += 1
 
 	fig.colorbar(im, ax=axes.ravel().tolist())
-# plt.show()
 
-HOME_FOLDER = os.getcwd()
 
-df_common = pd.read_csv(HOME_FOLDER+'/data/Common_materials.tsv', sep='\t')
-df_mat_dens = pd.read_csv(HOME_FOLDER+'/data/materials_strength_density.tsv', sep='\t')
-df = pd.merge(df_common, df_mat_dens, on="Material")
-
-MaterialDensity = df['Density low_y'].loc[45]
 
 from pymoo.model.problem import Problem
 
@@ -144,32 +146,8 @@ while obj.has_next():
 result = obj.result()
 
 
-
-''' === derived Pareto set === '''
-
 from pymoo.visualization.scatter import Scatter
 
-# get the pareto-set and pareto-front for plotting
-ps = problem.pareto_set(use_cache=False, flatten=False)
-pf = problem.pareto_front(use_cache=False, flatten=False)
-
-# Design Space
-plot = Scatter(title = "Design Space", axis_labels="x")
-plot.add(res.X, s=30, facecolors='none', edgecolors='r')
-if ps is not None:
-	plot.add(ps, plot_type="line", color="black", alpha=0.7)
-plot.do()
-plot.apply(lambda ax: ax.set_xlim(0, 0.5))
-plot.apply(lambda ax: ax.set_ylim(0, 0.5))
-plot.show()
-
-
-# Objective Space
-plot = Scatter(title = "Objective Space")
-plot.add(res.F)
-if pf is not None:
-	plot.add(pf, plot_type="line", color="black", alpha=0.7)
-plot.show()
 
 ''' === Convergence === '''
 
@@ -209,35 +187,15 @@ metric = Hypervolume(ref_point=ref_point, normalize=False)
 # calculate for each generation the HV metric
 hv = [metric.calc(f) for f in F]
 
+plt.figure()
 # visualze the convergence curve
 plt.plot(n_evals, hv, '-o', markersize=4, linewidth=2)
 plt.title("Convergence")
 plt.xlabel("Function Evaluations")
 plt.ylabel("Hypervolume")
-plt.show()
-
-''' === IGD === '''
-
-import matplotlib.pyplot as plt
-from pymoo.performance_indicator.igd import IGD
-
-if pf is not None:
-
-	# for this test problem no normalization for post prcessing is needed since similar scales
-	normalize = False
-
-	metric = IGD(pf=pf, normalize=normalize)
-
-	# calculate for each generation the HV metric
-	igd = [metric.calc(f) for f in F]
-
-	# visualze the convergence curve
-	plt.plot(n_evals, igd, '-o', markersize=4, linewidth=2, color="green")
-	plt.yscale("log")          # enable log scale if desired
-	plt.title("Convergence")
-	plt.xlabel("Function Evaluations")
-	plt.ylabel("IGD")
-	plt.show()
+# plt.show()
 
 
-
+## Parallel Coordinate Plots
+from pymoo.visualization.pcp import PCP
+PCP().add(res.F).show()
