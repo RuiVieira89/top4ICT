@@ -11,10 +11,55 @@ from helpFun import funVar
 
 import matplotlib.pyplot as plt
 import numpy as np
-from pymoo.model.problem import Problem
+import pandas as pd
+import os
+
 
 # def function(x):
-# 	return x[0]**2, x[1]**2 
+# 	return x[0]**2, x[2]**2 + x[1]**2
+
+## PLOTS
+N = 20
+x = np.arange(0.25,0.5,-(0.25-0.5)/N)
+y = np.arange(0.25,0.5,-(0.25-0.5)/N)
+# x = np.arange(-2,2,4/N)
+# y = np.arange(-2,2,4/N)
+
+PLOTS = np.arange(0.001, 0.01, 0.001)
+# PLOTS = np.arange(-2, 2, 4/N)
+
+for func in [0, 1]:
+	j = 0
+	fig, axes = plt.subplots(nrows=int(PLOTS.shape[0]**0.5), 
+		ncols=int(PLOTS.shape[0]**0.5), 
+		# constrained_layout=True
+		)
+
+	for ax in axes.flat:
+		i = PLOTS[j]
+		h = np.ones([N,N])*i
+		X,Y = np.meshgrid(x, y)
+		Z = function([X, Y, h])[func]
+
+		im = ax.contourf(X, Y, Z, levels=20)
+		text = ax.text(X.min()+0.1*X.min(), Y.min()+0.3*Y.min(), 
+			f'h={i:.3f}\nf_max={Z.max():.2f}\nf_min={Z.min():.4f}', 
+			horizontalalignment='left', 
+			verticalalignment='top', color="w")
+		j += 1
+
+	fig.colorbar(im, ax=axes.ravel().tolist())
+# plt.show()
+
+HOME_FOLDER = os.getcwd()
+
+df_common = pd.read_csv(HOME_FOLDER+'/data/Common_materials.tsv', sep='\t')
+df_mat_dens = pd.read_csv(HOME_FOLDER+'/data/materials_strength_density.tsv', sep='\t')
+df = pd.merge(df_common, df_mat_dens, on="Material")
+
+MaterialDensity = df['Density low_y'].loc[45]
+
+from pymoo.model.problem import Problem
 
 class MyProblem(Problem):
 
@@ -24,14 +69,19 @@ class MyProblem(Problem):
 			n_constr=2,
 			xl=np.array([0.25, 0.25, 0.001]),
 			xu=np.array([0.5, 0.5, 0.01]),
-			elementwise_evaluation=True
+			# elementwise_evaluation=True
 			)
 
 	def _evaluate(self, X, out, *args, **kwargs):
-		w, sigma_max = function(X) 
 
-		out["F"] = w # np.column_stack([w])
-		out["G"] = sigma_max # np.column_stack([sigma_max])
+		w, sigma_max = function(X) 
+		sysMass = np.prod(X, axis=1)*MaterialDensity
+
+		# print(X, '\n\n', np.column_stack([w, sigma_max]))
+		# exit(0)
+
+		out["F"] = np.column_stack([w, sysMass])
+		out["G"] = np.column_stack([-w,-sysMass])
 
 
 problem = MyProblem()

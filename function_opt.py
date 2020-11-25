@@ -17,8 +17,8 @@ def function(X):
 		h = X[:,2]
 	except:
 		a = X[0]
-		b = a.copy()
-		h = X[1]
+		b = X[1]
+		h = X[2]
 
 
 	# print(X, '\n\n', a, '\n\n', b, '\n\n', h)
