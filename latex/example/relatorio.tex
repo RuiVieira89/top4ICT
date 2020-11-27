@@ -1,0 +1,133 @@
+\documentclass[a4paper,12pt]{article}
+%
+
+\usepackage{a4wide}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+\usepackage[algo2e]{algorithm2e}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{colortbl}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+\usepackage{gensymb}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%\usepackage{dsfont}
+\usetikzlibrary{shapes,trees}
+\usetikzlibrary{graphs}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usepackage{subcaption}
+\usepackage[portuges]{babel}
+
+\begin{document}
+%
+\title{Trabalho final de AGE e OSD}
+
+
+\author{A.~Ismael F.~Vaz\thanks{Algoritmi Research Centre, University of Minho, 4710-057 Braga, Portugal, {\tt aivaz@dps.uminho.pt}}}
+
+\maketitle              % typeset the header of the contribution
+%
+\begin{abstract}
+Este relatório destina-se a apresentar o trabalho das Unidades Curriculares (UCs) de Algoritmos Genéticos e Evolucionários (AGE) e Otimização Sem Derivadas (OSD). Inicia-se com a discrição do problema de otimização, originário da área de trabalho da minha bolsa de investigação. O problema é sobre como maximizar a quantidade de leveduras em iogurtes. É apresentada uma discussão sobre a estrutura matemática do problema e a abordagem usada na sua resolução. Finaliza-se apresentando as conclusões.
+\end{abstract}
+
+%
+%
+%
+\section{Introdução}
+
+Os iogurtes são importantes na nossa alimentação e como tal importa maximizar a quantidade de leveduras presentes.
+
+A função objetivo (a maximizar) é:
+\begin{equation}\label{eq:fo}
+f(x)=\dots
+\end{equation}
+
+Pretende-se maximizar a função $f(x)$ descrita na Equação~\eqref{eq:fo} sabendo que as variáveis $x$ (que representam as quantidades de leite e açúcar) são não negativas e não podem exceder a capacidade do recipiente onde serão confecionadas. Como tal temos $0\leq x_1\leq 10$ (quantidade de leite) e $0\leq x_2\leq 10$ (quantidade de açúcar), originando o seguinte problema de otimização:
+\begin{equation}\label{eq:prob}
+\begin{split}
+\max\;\; &f(x)\\
+s.a\;\; & \ell\leq x\leq u
+\end{split}
+\end{equation}
+onde $\ell=(0,0)^T$ e $u=(10,10)^T$.
+
+Nas secções seguintes apresenta-se uma breve discrição sobre o problema e qual a melhor abordagem na sua resolução. Concluímos na Secção~\ref{sc:conc}.
+
+\section{Estrutura do problema e técnica mais adequada}
+
+Como as funções envolvidas no problema de otimização~\eqref{eq:prob} são diferenciáveis poderíamos usar um solver que as use ou estime ({\tt fmincon} do MATLAB~\cite{matlab} em vez do {\tt fminunc}, porque temos restrições do tipo limite simples).
+
+No entanto, suspeita-se (como se pode ver na Figura~\ref{fig:land})\footnote{Podem fixar algumas variáveis e desenhar um gráfico a três dimensões com apenas duas das variáveis. Isso permite ter uma ideia do tipo de função. Veja no Apêndice~\ref{A:2} como proceder.} que a função $f(x)$ é multimodal e por isso iremos usar o \emph{solver} mais adequado que seria o {\tt GA} ou o {\tt PSwarm}~\cite{AIFVaz_LNVicente_2009}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{figure.eps}
+\end{center}
+\caption{\label{fig:land}A função desenhada com $z$ fixo ($z=2$)}
+\end{figure}
+
+
+\section{Solução ótima do problema}
+
+Apesar de não ser (ou ser) o mais adequado, utilizamos os vários \emph{solvers} de AGE e OSD para apresentar uma solução ótima para o problema.
+
+\subsection{AGE -- GA}
+
+Que parâmetros tivemos de alterar/usar... Tamanho da população, etc...
+
+\subsection{OSD -- {\tt fminsearh}}
+
+Podem ter de ignorar algumas restrições e isso pode fazer com que o problema deixe de possuir uma solução finita...
+
+\subsection{OSD -- Pattern Search}
+
+
+\subsection{OSD -- {\tt PSwarm}}
+
+
+\section{Conclusões}\label{sc:conc}
+
+Resolvemos ou não o problema e qual a diferença entre os \emph{solvers}. Tive de suar muito para escrever o código que apresento no Apêndice~\ref{A:1}.
+
+
+
+\appendix
+
+\section{O código}\label{A:1}
+
+O código que me deu muito trabalho, mas que provavelmente o professor não vai ler.
+
+\section{A figura}\label{A:2}
+
+A figura foi feita com o código MATLAB que se segue e gravada em formato .eps.
+
+\begin{verbatim}
+[x,y]=meshgrid(0:0.01:3,0:.01:3);
+%plot da função f(x,y,z)=x^2-2*x*z+cos(y)
+% fixando o z=2, por exemplo
+z=2;
+f=@(x,y,z)x^2-2*x*z+cos(y);
+
+for i=1:size(x,1)
+    for j=1:size(x,2)
+        fval(i,j)=f(x(i,j),y(i,j),z);
+    end
+end
+
+plot3(x,y,fval);
+xlabel('x');
+ylabel('y');
+title('Função com z=2');
+\end{verbatim}
+
+
+\bibliographystyle{plain}
+\bibliography{relatorio}
+
+\end{document}
