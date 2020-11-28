@@ -42,43 +42,30 @@ As placas de circuito impresso são essenciais numa era de crescente digitiliza�
 
 A função objetivo (a minimizar) é:
 
-\begin{equation}\label{eq:prob}
-\begin{split}
-\max\;\; &f(x)\\
-s.a\;\; & \ell\leq x\leq u
-\end{split}
-\end{equation}
-onde $\ell=(0,0)^T$ e $u=(10,10)^T$.
-
 
 \begin{equation}\label{eq:fo}
-$$x=2\\sqrt{\\frac{2\\pi k T_e}{m_e}} \\left(\\frac{\\Delta E}{k T_e}\\right)^2 a_0^2$$
+D_{const}=\frac{E h^3}{12\left(1-{\nu}^2\right)}
 \end{equation}
 
-%\begin{equation}\label{eq:fo}
-%<IPython.core.display.Latex object>
-%$$Dconst=\frac{E h^3}{12\left(1-{ne}^2\right)}$$
-%\end{equation}
-%
-%\begin{equation}\label{eq:fo}
-%$$k_{}=\frac{k b^4}{Dconst {\pi}^4}$$
-%\end{equation}
-%
-%\begin{equation}\label{eq:fo}
-%$$del_T=\frac{T alfa Dconst \left(1+ne\right) {\pi}^2}{b^2}$$
-%\end{equation}
-%
-%\begin{equation}\label{eq:fo}
-%$$Wmn=\frac{\frac{b^4}{Dconst {\pi}^4} \left(qmn+del_T \left(m^2 s^2+n^2\right)\right)}{{\left(m^2 s^2+n^2\right)}^2+k_{}}$$
-%\end{equation}
-%
-%\begin{equation}\label{eq:fo}
-%$$w0=w0+Wmn sin\left(\frac{m \pi x}{a}\right) sin\left(\frac{n \pi y}{b}\right)$$
-%\end{equation}
-%
-%\begin{equation}\label{eq:fo}
-%$$\sigma_{max}=\frac{6qmn\times2 b^2}{{\pi}^2 h^2 {\left(s^2+1\right)}^2} \left(s^2+ne\right)$$
-%\end{equation}
+\begin{equation}\label{eq:fo}
+k=\frac{k b^4}{D_{const} {\pi}^4}
+\end{equation}
+
+\begin{equation}\label{eq:fo}
+\delta T=\frac{T \alpha D_{const} \left(1+ne\right) {\pi}^2}{b^2}
+\end{equation}
+
+\begin{equation}\label{eq:fo}
+W_{mn}=\frac{\frac{b^4}{D_{const} {\pi}^4} \left(q_{mn}+\delta T \left(m^2 s^2+n^2\right)\right)}{{\left(m^2 s^2+n^2\right)}^2+k}
+\end{equation}
+
+\begin{equation}\label{eq:fo}
+w_0=w_0+W_{mn} sin\left(\frac{m \pi x}{a}\right) sin\left(\frac{n \pi y}{b}\right)
+\end{equation}
+
+\begin{equation}\label{eq:fo}
+\sigma_{max}=\frac{6q_mn\times2 b^2}{{\pi}^2 h^2 {\left(s^2+1\right)}^2} \left(s^2+\nu\right)
+\end{equation}
 
 
 
