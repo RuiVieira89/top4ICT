@@ -32,43 +32,54 @@ y = np.arange(0.25,0.5,-(0.25-0.5)/N)
 # x = np.arange(-2,2,4/N)
 # y = np.arange(-2,2,4/N)
 
-PLOTS = np.arange(0.001, 0.01, 0.001)
+PLOTS = np.arange(0.001, 0.01, 0.01/4)
 # PLOTS = np.arange(-2, 2, 4/N)
+fig, axes = plt.subplots(figsize=(20, 12),nrows=int(PLOTS.shape[0]**0.5), 
+	ncols=int(PLOTS.shape[0]**0.5), 
+	# constrained_layout=True
+	)
 
-for func in [0, 1]:
-	j = 0
-	fig, axes = plt.subplots(figsize=(20, 12),nrows=int(PLOTS.shape[0]**0.5), 
-		ncols=int(PLOTS.shape[0]**0.5), 
-		# constrained_layout=True
-		)
-	fig.tight_layout()
-	for ax in axes.flat:
-		i = PLOTS[j]
-		h = np.ones([N,N])*i
-		X,Y = np.meshgrid(x, y)
-		if func == 0:
-			Z = function([X, Y, h])[func]
-		else:
-			Z = X*Y*h*MaterialDensity
+j = 0
+func = 0
+fig.tight_layout()
+for ax in axes.flat:
 
-		im = ax.contourf(X, Y, Z, levels=20)
-		ax.set_xlabel('$b$', labelpad=-2)
-		ax.set_ylabel('$a$', labelpad=-20)
-		text = ax.text(X.min()+0.1*X.min(), Y.min()+0.3*Y.min(), 
-			f'h={i:.3f}\nf_max={Z.max():.2f}\nf_min={Z.min():.4f}', 
-			horizontalalignment='left', 
-			verticalalignment='top', color="w")
-		j += 1
+	print(f'j={j}, func={func}, res={np.ceil( ((j-2)*func)/(j+1) - (func-1)*j )}', '\n')
 
-	bar = fig.colorbar(im, ax=axes.ravel().tolist())
+	i = PLOTS[int(np.ceil( ((j-2)*func)/(j+1) - (func-1)*j ))]
+	h = np.ones([N,N])*i
+	X,Y = np.meshgrid(x, y)
 	if func == 0:
-		bar.set_label('Deformation')
-		# fig.tight_layout()
-		plt.savefig(LATEX_DIR + 'deformacao.eps', format='eps')
+		Z = function([X, Y, h])[func]
 	else:
-		bar.set_label('Mass')
-		# fig.tight_layout()
-		plt.savefig(LATEX_DIR + 'massa.eps', format='eps')
+		Z = X*Y*h*MaterialDensity
+
+	im = ax.contourf(X, Y, Z, levels=20)
+	ax.set_xlabel('$b$', labelpad=-2)
+	ax.set_ylabel('$a$', labelpad=-20)
+	text = ax.text(X.min()+0.1*X.min(), Y.min()+0.3*Y.min(), 
+		f'h={i:.3f}\nf_max={Z.max():.2f}\nf_min={Z.min():.4f}', 
+		horizontalalignment='left', 
+		verticalalignment='top', color="w")
+	if j == 1 or j == 3:
+		print('break\n')
+		# j += 1
+
+		bar = fig.colorbar(im, ax=axes.ravel().tolist())
+		if func == 0:
+			bar.set_label('Deformation')
+			# plt.savefig(LATEX_DIR + 'deformacao.eps', format='eps')
+		else:
+			bar.set_label('Mass')
+			# plt.savefig(LATEX_DIR + 'massa.eps', format='eps')
+
+		func += 1
+
+	j += 1
+
+
+plt.savefig(LATEX_DIR + 'deformacaoEmassa.eps', format='eps')
+
 
 plt.show()
 exit(0)

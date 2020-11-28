@@ -86,35 +86,48 @@ s.a\;\; & 0.25\leq a\leq 0.5\\
 \end{split}
 \end{equation}
 
-Onde a e b são os lados da chapa e h é a sua espessura.
-
+Onde $a$ e $b$ são os lados da chapa e $h$ é a sua espessura. Ou seja, o objectivo será conseguir um compromisso entre estes objectivos antagonicos.
+Na figura~\ref{fig:defImDef}, vemos que a função deformação $w_{0}$ minimiza com a diminuição de $a$, $b$ e aumento com $h$.
 
 \begin{figure}[!htbp]
 \begin{center}
 \includegraphics[scale=0.3]{deformacao.eps}
 \end{center}
-\caption{\label{fig:defIm}A função desenhada com $z$ fixo ($z=2$)}
+\caption{\label{fig:defImDef}A função deformação desenhada com $h$ fixos}
+\end{figure}
+
+Já a figura~\ref{fig:defImMass} mostra que a função massa minimiza com os parametros $a$, $b$ e $h$. 
+
+\begin{figure}[!htbp]
+\begin{center}
+\includegraphics[scale=0.3]{massa.eps}
+\end{center}
+\caption{\label{fig:defImMass}A função massa desenhada com $h$ fixos}
 \end{figure}
 
 Outra fig.
+
+Usar isto para a paralelos.
 
 \begin{figure}[!htbp]
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.4\linewidth]{deformacao.eps}
+  \includegraphics[width=.99\linewidth]{deformacao.eps}
   \caption{Deformação}
   \label{fig:sub1}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.4\linewidth]{massa.eps}
+  \includegraphics[width=.99\linewidth]{massa.eps}
   \caption{Massa}
   \label{fig:sub2}
 \end{subfigure}
 \caption{\label{fig:defIm2}A função desenhada com $z$ fixo ($z=2$)}
 %\label{fig:test}
 \end{figure}
+
+\section{Solução}
 
 
 \end{document}
