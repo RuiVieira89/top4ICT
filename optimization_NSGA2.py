@@ -23,41 +23,46 @@ df = pd.merge(df_common, df_mat_dens, on="Material")
 
 MaterialDensity = df['Density low_y'].loc[45]
 
+LATEX_DIR = '/home/rui/dev/top4ICT/latex/'
 
 ## PLOTS
-# N = 20
-# x = np.arange(0.25,0.5,-(0.25-0.5)/N)
-# y = np.arange(0.25,0.5,-(0.25-0.5)/N)
-# # x = np.arange(-2,2,4/N)
-# # y = np.arange(-2,2,4/N)
+N = 20
+x = np.arange(0.25,0.5,-(0.25-0.5)/N)
+y = np.arange(0.25,0.5,-(0.25-0.5)/N)
+# x = np.arange(-2,2,4/N)
+# y = np.arange(-2,2,4/N)
 
-# PLOTS = np.arange(0.001, 0.01, 0.001)
-# # PLOTS = np.arange(-2, 2, 4/N)
+PLOTS = np.arange(0.001, 0.01, 0.001)
+# PLOTS = np.arange(-2, 2, 4/N)
 
-# for func in [0, 1]:
-# 	j = 0
-# 	fig, axes = plt.subplots(nrows=int(PLOTS.shape[0]**0.5), 
-# 		ncols=int(PLOTS.shape[0]**0.5), 
-# 		# constrained_layout=True
-# 		)
+for func in [0, 1]:
+	j = 0
+	fig, axes = plt.subplots(figsize=(20, 12),nrows=int(PLOTS.shape[0]**0.5), 
+		ncols=int(PLOTS.shape[0]**0.5), 
+		# constrained_layout=True
+		)
 
-# 	for ax in axes.flat:
-# 		i = PLOTS[j]
-# 		h = np.ones([N,N])*i
-# 		X,Y = np.meshgrid(x, y)
-# 		if func == 0:
-# 			Z = function([X, Y, h])[func]
-# 		else:
-# 			Z = X*Y*h*MaterialDensity
+	for ax in axes.flat:
+		i = PLOTS[j]
+		h = np.ones([N,N])*i
+		X,Y = np.meshgrid(x, y)
+		if func == 0:
+			Z = function([X, Y, h])[func]
+		else:
+			Z = X*Y*h*MaterialDensity
 
-# 		im = ax.contourf(X, Y, Z, levels=20)
-# 		text = ax.text(X.min()+0.1*X.min(), Y.min()+0.3*Y.min(), 
-# 			f'h={i:.3f}\nf_max={Z.max():.2f}\nf_min={Z.min():.4f}', 
-# 			horizontalalignment='left', 
-# 			verticalalignment='top', color="w")
-# 		j += 1
+		im = ax.contourf(X, Y, Z, levels=20)
+		text = ax.text(X.min()+0.1*X.min(), Y.min()+0.3*Y.min(), 
+			f'h={i:.3f}\nf_max={Z.max():.2f}\nf_min={Z.min():.4f}', 
+			horizontalalignment='left', 
+			verticalalignment='top', color="w")
+		j += 1
 
-# 	fig.colorbar(im, ax=axes.ravel().tolist())
+	fig.colorbar(im, ax=axes.ravel().tolist())
+	if func == 0:
+		plt.savefig(LATEX_DIR + 'deformacao.eps', format='eps')
+	else:
+		plt.savefig(LATEX_DIR + 'massa.eps', format='eps')
 
 
 
@@ -120,7 +125,7 @@ res = minimize(problem,
 	termination, 
 	seed=1, 
 	save_history=True, 
-	verbose=True
+	# verbose=True
 	)
 
 ''' === Object-Oriented Interface === '''
@@ -140,7 +145,7 @@ while obj.has_next():
 	obj.next()
 
 	# access the algorithm to print some intermediate outputs
-	print(f"gen: {obj.n_gen} n_nds: {len(obj.opt)} constr: {obj.opt.get('CV').min()} ideal: {obj.opt.get('F').min(axis=0)}")
+	# print(f"gen: {obj.n_gen} n_nds: {len(obj.opt)} constr: {obj.opt.get('CV').min()} ideal: {obj.opt.get('F').min(axis=0)}")
 
 # finally obtain the result object
 result = obj.result()
@@ -194,8 +199,9 @@ plt.title("Convergence")
 plt.xlabel("Function Evaluations")
 plt.ylabel("Hypervolume")
 # plt.show()
-
+plt.savefig(LATEX_DIR + 'convergence.eps', format='eps')
 
 ## Parallel Coordinate Plots
 from pymoo.visualization.pcp import PCP
 PCP().add(res.F).show()
+plt.savefig(LATEX_DIR + 'parallel_coord.eps', format='eps')
