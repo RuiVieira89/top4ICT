@@ -41,7 +41,7 @@ for func in [0, 1]:
 		ncols=int(PLOTS.shape[0]**0.5), 
 		# constrained_layout=True
 		)
-
+	fig.tight_layout()
 	for ax in axes.flat:
 		i = PLOTS[j]
 		h = np.ones([N,N])*i
@@ -52,18 +52,26 @@ for func in [0, 1]:
 			Z = X*Y*h*MaterialDensity
 
 		im = ax.contourf(X, Y, Z, levels=20)
+		ax.set_xlabel('$b$', labelpad=-2)
+		ax.set_ylabel('$a$', labelpad=-20)
 		text = ax.text(X.min()+0.1*X.min(), Y.min()+0.3*Y.min(), 
 			f'h={i:.3f}\nf_max={Z.max():.2f}\nf_min={Z.min():.4f}', 
 			horizontalalignment='left', 
 			verticalalignment='top', color="w")
 		j += 1
 
-	fig.colorbar(im, ax=axes.ravel().tolist())
+	bar = fig.colorbar(im, ax=axes.ravel().tolist())
 	if func == 0:
+		bar.set_label('Deformation')
+		# fig.tight_layout()
 		plt.savefig(LATEX_DIR + 'deformacao.eps', format='eps')
 	else:
+		bar.set_label('Mass')
+		# fig.tight_layout()
 		plt.savefig(LATEX_DIR + 'massa.eps', format='eps')
 
+plt.show()
+exit(0)
 
 
 from pymoo.model.problem import Problem
