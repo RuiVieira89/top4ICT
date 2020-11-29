@@ -34,17 +34,18 @@ y = np.arange(0.25,0.5,-(0.25-0.5)/N)
 
 PLOTS = np.arange(0.001, 0.01, 0.01/4)
 # PLOTS = np.arange(-2, 2, 4/N)
-fig, axes = plt.subplots(figsize=(20, 12),nrows=int(PLOTS.shape[0]**0.5), 
+fig, axes = plt.subplots(
+	figsize=(20, 14),
+	nrows=int(PLOTS.shape[0]**0.5), 
 	ncols=int(PLOTS.shape[0]**0.5), 
 	# constrained_layout=True
 	)
 
+fig.tight_layout()
+
 j = 0
 func = 0
-fig.tight_layout()
 for ax in axes.flat:
-
-	print(f'j={j}, func={func}, res={np.ceil( ((j-2)*func)/(j+1) - (func-1)*j )}', '\n')
 
 	i = PLOTS[int(np.ceil( ((j-2)*func)/(j+1) - (func-1)*j ))]
 	h = np.ones([N,N])*i
@@ -55,23 +56,30 @@ for ax in axes.flat:
 		Z = X*Y*h*MaterialDensity
 
 	im = ax.contourf(X, Y, Z, levels=20)
-	ax.set_xlabel('$b$', labelpad=-2)
-	ax.set_ylabel('$a$', labelpad=-20)
+	ax.set_xlabel('$b$', 
+		labelpad=-2
+		)
+	ax.set_ylabel('$a$', 
+		labelpad=-20
+		)
 	text = ax.text(X.min()+0.1*X.min(), Y.min()+0.3*Y.min(), 
 		f'h={i:.3f}\nf_max={Z.max():.2f}\nf_min={Z.min():.4f}', 
 		horizontalalignment='left', 
 		verticalalignment='top', color="w")
+	if func == 0:
+		text_title = ax.text(X.max()*0.7, Y.max()*0.9, 
+			'Deformação', color="w", size=20)
+	else:
+		text_title = ax.text(X.max()*0.7, Y.max()*0.9, 
+			'Massa', color="w",size=20)
+
 	if j == 1 or j == 3:
-		print('break\n')
-		# j += 1
 
 		bar = fig.colorbar(im, ax=axes.ravel().tolist())
 		if func == 0:
-			bar.set_label('Deformation')
-			# plt.savefig(LATEX_DIR + 'deformacao.eps', format='eps')
+			bar.set_label('Deformação')
 		else:
-			bar.set_label('Mass')
-			# plt.savefig(LATEX_DIR + 'massa.eps', format='eps')
+			bar.set_label('Massa')
 
 		func += 1
 
