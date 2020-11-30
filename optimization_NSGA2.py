@@ -227,24 +227,22 @@ plt.show()
 
 
 
-from pymoo.factory import get_problem, get_visualization, get_decomposition
-import numpy as np
+from pymoo.factory import get_visualization, get_decomposition
+
 F = res.F
-weights = np.array([0.5, 0.5])
+weights = np.array([0.01, 0.99])
 decomp = get_decomposition("asf")
 
 # We apply the decomposition and retrieve the best value (here minimum):
 I = get_decomposition("asf").do(F, weights).argmin()
 print("Best regarding decomposition: Point %s - %s" % (I, F[I]))
 
-from pymoo.factory import get_visualization
-
 plot = get_visualization("scatter")
 plot.add(F, color="blue", alpha=0.5, s=30)
 plot.add(F[I], color="red", s=40)
 plot.do()
-plot.apply(lambda ax: ax.arrow(0, 0, F[I][0], F[I][1], color='black',
-	head_width=0.03, head_length=0.15, alpha=0.9))
+# plot.apply(lambda ax: ax.arrow(0, 0, F[I][0], F[I][1], color='black',
+# 	head_width=0.001, head_length=0.001, alpha=0.4))
 plot.show()
 
 
