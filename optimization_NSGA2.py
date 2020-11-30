@@ -85,8 +85,7 @@ for ax in axes.flat:
 
 	j += 1
 
-plt.show()
-plt.savefig(LATEX_DIR + 'deformacaoEmassa.eps', format='eps')
+# plt.savefig(LATEX_DIR + 'deformacaoEmassa.eps', format='eps')
 
 
 
@@ -107,9 +106,6 @@ class MyProblem(Problem):
 
 		w, sigma_max = function(X) 
 		sysMass = np.prod(X, axis=1)*MaterialDensity
-
-		# print(X, '\n\n', np.column_stack([w, sigma_max]))
-		# exit(0)
 
 		out["F"] = np.column_stack([w, sysMass])
 		out["G"] = np.column_stack([-w,-sysMass])
@@ -222,7 +218,7 @@ plt.plot(n_evals, hv, '-o', markersize=4, linewidth=2)
 plt.title("Convergence")
 plt.xlabel("Function Evaluations")
 plt.ylabel("Hypervolume")
-fig.savefig(LATEX_DIR + 'convergence.eps', format='eps')
+# fig.savefig(LATEX_DIR + 'convergence.eps', format='eps')
 plt.show()
 
 
@@ -250,4 +246,6 @@ plot.show()
 from pymoo.visualization.pcp import PCP
 plotPCP = PCP().add(res.F).add(res.F[I], color='r').show()
 
+
+print(f'A solução ideal é encontrada para a deformação {res.F[I][0]:.4f}m e massa {res.F[I][0]:.4f}kg com os parametros a {res.X[I][0]:.4f} b {res.X[I][1]:.4f} e h {res.X[I][2]:.4f}')
 
