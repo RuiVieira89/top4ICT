@@ -16,14 +16,13 @@ import os
 
 ## Density data
 HOME_FOLDER = os.getcwd()
+LATEX_DIR = '/home/rui/dev/top4ICT/latex/'
 
 df_common = pd.read_csv(HOME_FOLDER+'/data/Common_materials.tsv', sep='\t')
 df_mat_dens = pd.read_csv(HOME_FOLDER+'/data/materials_strength_density.tsv', sep='\t')
 df = pd.merge(df_common, df_mat_dens, on="Material")
 
 MaterialDensity = df['Density low_y'].loc[45]
-
-LATEX_DIR = '/home/rui/dev/top4ICT/latex/'
 
 ## PLOTS
 N = 20
@@ -85,12 +84,9 @@ for ax in axes.flat:
 
 	j += 1
 
-
 plt.savefig(LATEX_DIR + 'deformacaoEmassa.eps', format='eps')
+# plt.show()
 
-
-plt.show()
-exit(0)
 
 
 from pymoo.model.problem import Problem
@@ -219,16 +215,33 @@ metric = Hypervolume(ref_point=ref_point, normalize=False)
 # calculate for each generation the HV metric
 hv = [metric.calc(f) for f in F]
 
-plt.figure()
+fig = plt.figure()
 # visualze the convergence curve
 plt.plot(n_evals, hv, '-o', markersize=4, linewidth=2)
 plt.title("Convergence")
 plt.xlabel("Function Evaluations")
 plt.ylabel("Hypervolume")
-# plt.show()
-plt.savefig(LATEX_DIR + 'convergence.eps', format='eps')
+fig.savefig(LATEX_DIR + 'convergence.eps', format='eps')
+plt.show()
+
 
 ## Parallel Coordinate Plots
 from pymoo.visualization.pcp import PCP
-PCP().add(res.F).show()
-plt.savefig(LATEX_DIR + 'parallel_coord.eps', format='eps')
+plotPCP = PCP().add(res.F).show()
+
+
+# Design Space
+# fig = plt.figure()
+# plot = Scatter(title = "Design Space", axis_labels="x")
+# plot.add(res.X, s=30, facecolors='none', edgecolors='r')
+# plot.do()
+# plot.apply(lambda ax: ax.set_xlim(-0.5, 1.5))
+# plot.apply(lambda ax: ax.set_ylim(-2, 2))
+# plot.show()
+
+# Objective Space
+fig = plt.figure()
+plot = Scatter(title = "Objective Space")
+plot.add(res.F).show()
+# fig.savefig(LATEX_DIR + 'objSpace.eps', format='eps')
+# plot.show()
