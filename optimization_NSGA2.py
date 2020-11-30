@@ -1,7 +1,7 @@
 # TIPS:: https://github.com/msu-coinlab/pymoo/blob/master/doc/source/getting_started.ipynb
 # DOCS:: https://pyomo.readthedocs.io/_/downloads/en/stable/pdf/
 
-# RUN:: python optimization.py | tee log.txt
+# RUN:: python optimization_NSGA2.py | tee log.txt
 
 import warnings
 warnings.simplefilter(action='ignore')
@@ -50,9 +50,9 @@ for ax in axes.flat:
 	h = np.ones([N,N])*i
 	X,Y = np.meshgrid(x, y)
 	if func == 0:
-		Z = function([X, Y, h])[func]
+		Z = 1000 * function([X, Y, h])[func]
 	else:
-		Z = X*Y*h*MaterialDensity
+		Z = 1000 * X*Y*h*MaterialDensity
 
 	im = ax.contourf(X, Y, Z, levels=20)
 	ax.set_xlabel('$b$', 
@@ -64,7 +64,8 @@ for ax in axes.flat:
 	text = ax.text(X.min()+0.1*X.min(), Y.min()+0.3*Y.min(), 
 		f'h={i:.3f}\nf_max={Z.max():.2f}\nf_min={Z.min():.4f}', 
 		horizontalalignment='left', 
-		verticalalignment='top', color="w")
+		verticalalignment='top', color="w",
+		size=20)
 	if func == 0:
 		text_title = ax.text(X.max()*0.7, Y.max()*0.9, 
 			'Deformação', color="w", size=20)
@@ -76,16 +77,16 @@ for ax in axes.flat:
 
 		bar = fig.colorbar(im, ax=axes.ravel().tolist())
 		if func == 0:
-			bar.set_label('Deformação')
+			bar.set_label('Deformação [mm]', size=20)
 		else:
-			bar.set_label('Massa')
+			bar.set_label('Massa [g]', size=20)
 
 		func += 1
 
 	j += 1
 
+plt.show()
 plt.savefig(LATEX_DIR + 'deformacaoEmassa.eps', format='eps')
-# plt.show()
 
 
 
@@ -148,7 +149,7 @@ res = minimize(problem,
 	termination, 
 	seed=1, 
 	save_history=True, 
-	# verbose=True
+	verbose=True
 	)
 
 ''' === Object-Oriented Interface === '''
@@ -168,7 +169,7 @@ while obj.has_next():
 	obj.next()
 
 	# access the algorithm to print some intermediate outputs
-	# print(f"gen: {obj.n_gen} n_nds: {len(obj.opt)} constr: {obj.opt.get('CV').min()} ideal: {obj.opt.get('F').min(axis=0)}")
+	print(f"gen: {obj.n_gen} n_nds: {len(obj.opt)} constr: {obj.opt.get('CV').min()} ideal: {obj.opt.get('F').min(axis=0)}")
 
 # finally obtain the result object
 result = obj.result()
@@ -225,23 +226,30 @@ fig.savefig(LATEX_DIR + 'convergence.eps', format='eps')
 plt.show()
 
 
+
+from pymoo.factory import get_problem, get_visualization, get_decomposition
+import numpy as np
+F = res.F
+weights = np.array([0.5, 0.5])
+decomp = get_decomposition("asf")
+
+# We apply the decomposition and retrieve the best value (here minimum):
+I = get_decomposition("asf").do(F, weights).argmin()
+print("Best regarding decomposition: Point %s - %s" % (I, F[I]))
+
+from pymoo.factory import get_visualization
+
+plot = get_visualization("scatter")
+plot.add(F, color="blue", alpha=0.5, s=30)
+plot.add(F[I], color="red", s=40)
+plot.do()
+plot.apply(lambda ax: ax.arrow(0, 0, F[I][0], F[I][1], color='black',
+	head_width=0.03, head_length=0.15, alpha=0.9))
+plot.show()
+
+
 ## Parallel Coordinate Plots
 from pymoo.visualization.pcp import PCP
-plotPCP = PCP().add(res.F).show()
+plotPCP = PCP().add(res.F).add(res.F[I], color='r').show()
 
 
-# Design Space
-# fig = plt.figure()
-# plot = Scatter(title = "Design Space", axis_labels="x")
-# plot.add(res.X, s=30, facecolors='none', edgecolors='r')
-# plot.do()
-# plot.apply(lambda ax: ax.set_xlim(-0.5, 1.5))
-# plot.apply(lambda ax: ax.set_ylim(-2, 2))
-# plot.show()
-
-# Objective Space
-fig = plt.figure()
-plot = Scatter(title = "Objective Space")
-plot.add(res.F).show()
-# fig.savefig(LATEX_DIR + 'objSpace.eps', format='eps')
-# plot.show()
