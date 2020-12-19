@@ -108,7 +108,7 @@ Onde $a$ e $b$ são os lados da chapa e $h$ é a sua espessura. Na figura~\ref{f
 \label{fig:defIm1}
 \end{figure}
 
-\section{Solução do problema}
+\section{Solução do problema com algoritmo genético}
 
 A livraria utilizada foi o Pymoo~\cite{Pymoo} ~\cite{PymooArt} implementada para a linguagem de programação Python. Para resolver um problema multiobjetivo foi escolhido o algoritmo genetico NSGA-II~\cite{NSGA}. Este algoritmo utiliza uma estratégia elitista com partilha de parâmetros (isto é características) na população. Assim, uma população de n indivíduos gera uma população de descendentes através de uma selecção em torneio usando mutações para garantir variabilidade.
 
@@ -150,6 +150,30 @@ O resultado do método é um conjunto de soluções numa frente de Pareto, resta
 \caption{\label{fig:defIm2}A solução mais equilibada está a vermelho}
 %\label{fig:test}
 \end{figure}
+
+
+\section{Solução do problema com procura coordenada}
+
+
+
+\begin{figure}[!htbp]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.99\linewidth]{PS_objSpace.eps}
+  \caption{Frente de Pareto}
+  \label{fig:sub1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.99\linewidth]{PS_parallel_coord.eps}
+  \caption{Soluções em coordenadas paralelas}
+  \label{fig:sub2}
+\end{subfigure}
+\caption{\label{fig:defIm2}A solução mais equilibada está a vermelho}
+%\label{fig:test}
+\end{figure}
+
 
 
 \section{Conclusões}
