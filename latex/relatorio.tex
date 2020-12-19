@@ -132,6 +132,7 @@ O metodo convergiu em 140 gerações. Visto que que neste problema temos apenas 
 \subsection{Solução}
 
 O resultado do método é um conjunto de soluções numa frente de Pareto, resta agora escolher aquela que é mais adequada. Para isso usou-se um método de decomposição, onde, utilizando uns pesos adequados em função da importância dos objetivos, o problema multidimensional é avaliado como se só existisse um objetivo. Na figura~\ref{fig:defIm2}, podemos ver esse $trade-off$ entre a massa do sistema e a sua deformação do sistema de teste.
+Finalmente, solução ideal é encontrada para a deformação $0.0023m$ e massa $0.0023kg$ com os parametros $a=0.2500m$ $b=0.2500m$ e $h=0.0017m$.
 
 \begin{figure}[!htbp]
 \centering
@@ -153,6 +154,23 @@ O resultado do método é um conjunto de soluções numa frente de Pareto, resta
 
 
 \section{Solução do problema com procura coordenada}
+
+Algoritmos de procura coordenada são métodos numéricos de optimização que não requerem gradientes. Essencialmente, o algoritmo varia um parametro teórico com passos com a mesma magnitude, é determinada a direcção que minimiza a função, o passo é divido por 2 e o processo é repetido até que os passos são considerados suficientemente pequenos. Para o problema foi escolhido algoritmo de Hooke and Jeeves.
+
+
+\subsection{Parametros do algoritmo relevantes}
+
+Os parametros mais relevantes são os coeficientes exploratórios e o comprimento 
+
+%	explr_delta=0.1, 
+%	explr_rho=0.1, 
+%	pattern_step=2, 
+%	eps=1e-12, 
+
+
+\subsection{Solução}
+
+O resultado do método é um conjunto de soluções numa frente de Pareto, resta agora escolher aquela que é mais adequada. Para isso usou-se um método de decomposição, onde, utilizando uns pesos adequados em função da importância dos objetivos, o problema multidimensional é avaliado como se só existisse um objetivo. Na figura~\ref{fig:defIm2}, podemos ver esse $trade-off$ entre a massa do sistema e a sua deformação do sistema de teste. A solução ideal é encontrada para a deformação $0.0043m$ e massa $0.0043kg$ com os parametros $a = 0.2840$ $b = 0.3016$ e $h = 0.0020$.
 
 
 
@@ -181,7 +199,6 @@ O resultado do método é um conjunto de soluções numa frente de Pareto, resta
 A livraria Pymoo é uma interessante ferramenta $open source$ que implementa em C os principais algoritmos de otimização, com um API em python que torna a sua utilização simples flexível e com uma boa performance computacional.\\
 A escolha do algoritmo NSGA-II foi o correto para este tipo de problema, com uma convergência suave sem violações de restrições durante o processo de calculo.\\
 Com a análise da figura~\ref{fig:defIm2} é possível verificar que a aplicação de pesos num método de decomposição permitiu obter uma solução equilibrada, evitando soluções na frente de Pareto que privilegiem apenas um dos objetivos.\\
-Finalmente, solução ideal é encontrada para a deformação $0.0023m$ e massa $0.0023kg$ com os parametros $a=0.2500m$ $b=0.2500m$ e $h=0.0017m$.
 
 \newpage
 

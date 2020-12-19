@@ -51,7 +51,7 @@ algorithm = PatternSearch(
 	explr_delta=0.1, 
 	explr_rho=0.1, 
 	pattern_step=2, 
-	eps=1e-05, 
+	eps=1e-12, 
 	# display=PatternSearchDisplay()
 	)
 
