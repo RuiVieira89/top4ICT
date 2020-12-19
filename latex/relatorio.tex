@@ -132,7 +132,7 @@ O metodo convergiu em 140 gerações. Visto que que neste problema temos apenas 
 \subsection{Solução}
 
 O resultado do método é um conjunto de soluções numa frente de Pareto, resta agora escolher aquela que é mais adequada. Para isso usou-se um método de decomposição, onde, utilizando uns pesos adequados em função da importância dos objetivos, o problema multidimensional é avaliado como se só existisse um objetivo. Na figura~\ref{fig:defIm2}, podemos ver esse $trade-off$ entre a massa do sistema e a sua deformação do sistema de teste.
-Finalmente, solução ideal é encontrada para a deformação $0.0023m$ e massa $0.0023kg$ com os parametros $a=0.2500m$ $b=0.2500m$ e $h=0.0017m$.
+Finalmente, solução ideal é encontrada para a deformação $0.0023m$ e massa $0.0023kg$ com os parâmetros $a=0.2500m$ $b=0.2500m$ e $h=0.0017m$.
 
 \begin{figure}[!htbp]
 \centering
@@ -155,15 +155,15 @@ Finalmente, solução ideal é encontrada para a deformação $0.0023m$ e massa 
 
 \section{Solução do problema com procura coordenada}
 
-Algoritmos de procura coordenada são métodos numéricos de optimização que não requerem gradientes. Essencialmente, o algoritmo varia um parametro teórico com passos com a mesma magnitude, é determinada a direcção que minimiza a função, o passo é divido por 2 e o processo é repetido até que os passos são considerados suficientemente pequenos. Para o problema foi escolhido algoritmo de Hooke and Jeeves.
+Algoritmos de procura coordenada são métodos numéricos de optimização que não requerem gradientes. Essencialmente, o algoritmo varia um parâmetro teórico com passos com a mesma magnitude, é determinada a direcção que minimiza a função, o passo é divido por 2 e o processo é repetido até que os passos são considerados suficientemente pequenos. Para o problema foi escolhido algoritmo de Hooke and Jeeves.
 
-\subsection{Parametros do algoritmo relevantes}
+\subsection{parâmetros do algoritmo relevantes}
 
-$Exploratory$ $delta$ é usado para o movimento exploratório, foi definido como 0.1 o que quer dizer que o padrão é inicialmente creado a 10\% do ponto inicial. $Exploratory$ $rho$ é usado para multiplicar pelo passo, no caso de o movimento exploratório ser mal sucedido. Neste caso 0.3 foi usado.
+$Exploratory$ $delta$ é usado para o movimento exploratório, foi definido como 0.1 o que quer dizer que o padrão é inicialmente criado a 10\% do ponto inicial. $Exploratory$ $rho$ é usado para multiplicar pelo passo, no caso de o movimento exploratório ser mal sucedido. Neste caso 0.3 foi usado.
 
 \subsection{Convergencia}
 
-O metodo convergiu em 35 gerações e 310 calculos da funcção. Visto que que neste problema temos apenas 3 parametros a variar podemos usar o $Hypervolume$ como um indicador de performance. Ele compara o ponto de referencia arbritario com a solução encontrada. Estabilidade deste indicador mostrado na figura~\ref{fig:hyper} ajuda a confirmar convergencia.
+O método convergiu em 35 gerações e 310 cálculos da funcção. Visto que que neste problema temos apenas 3 parâmetros a variar podemos usar o $Hypervolume$ como um indicador de performance. Ele compara o ponto de referencia arbritrário com a solução encontrada. Estabilidade deste indicador mostrado na figura~\ref{fig:hyper} ajuda a confirmar convergência.
 
 \begin{figure}[h]
 \begin{center}
@@ -175,8 +175,8 @@ O metodo convergiu em 35 gerações e 310 calculos da funcção. Visto que que n
 
 \subsection{Solução}
 
-O resultado do método é um conjunto de soluções numa frente de Pareto, resta agora escolher aquela que é mais adequada. Para isso usou-se um método de decomposição, onde, utilizando uns pesos adequados em função da importância dos objetivos, o problema multidimensional é avaliado como se só existisse um objetivo. Na figura~\ref{fig:defIm2}, podemos ver esse $trade-off$ entre a massa do sistema e a sua deformação do sistema de teste. A solução ideal é encontrada para a deformação $0.0028m$ e massa $0.0028kg$ com os parametros $a = 0.2765$ $b = 0.2941$ e $h = 0.0021$. \\
-A frente de Pareto gerada pelo algoritmo não minimiza o problema, ao contrário do algoritmo genético, pelo que esta heuristica não é a mais adequada para resolver este problema.
+O resultado do método é um conjunto de soluções numa frente de Pareto, resta agora escolher aquela que é mais adequada. Para isso usou-se um método de decomposição, onde, utilizando uns pesos adequados em função da importância dos objetivos, o problema multidimensional é avaliado como se só existisse um objetivo. Na figura~\ref{fig:defIm2}, podemos ver esse $trade-off$ entre a massa do sistema e a sua deformação do sistema de teste. A solução ideal é encontrada para a deformação $0.0028m$ e massa $0.0028kg$ com os parâmetros $a = 0.2765$ $b = 0.2941$ e $h = 0.0021$. \\
+A frente de Pareto gerada pelo algoritmo não minimiza o problema, ao contrário do algoritmo genético, pelo que esta heurística não é a mais adequada para resolver este problema.
 
 
 
