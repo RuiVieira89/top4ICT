@@ -1,4 +1,4 @@
-function [w0, sigma_max] = func(X)
+function [w0] = func(X)
 %FUNC Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -20,6 +20,8 @@ function [w0, sigma_max] = func(X)
 	s = b/a;
     E = 69e9;
     ne = 0.33;
+    matDensity = 2500;
+    
 	alfa = 111e-6; % thermal diffusivity (m/s)
 	Q0 = 3000*a*b; % point force (N)
 
@@ -54,8 +56,9 @@ function [w0, sigma_max] = func(X)
 		cond = nanmax((w0 - w0_old)/w0) < 1e-8;
 		w0_old = w0;
     end
-
-	sigma_max = (6*qmn*2*b.^2)/(pi.^2*h.^2*(s.^2+1).^2)*(s.^2+ne); % maximum tension (Pa)
+    
+    w0 = w0/(a*b*h*matDensity);
+	%sigma_max = (6*qmn*2*b.^2)/(pi.^2*h.^2*(s.^2+1).^2)*(s.^2+ne); % maximum tension (Pa)
 
 end
 
