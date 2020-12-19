@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.11.27)  19 DEC 2020 12:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.11.27)  19 DEC 2020 15:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1362,6 +1362,9 @@ LaTeX Warning: Label `eq:fo' multiply defined.
 LaTeX Warning: Label `eq:fo' multiply defined.
 
 
+LaTeX Warning: Label `fig:hyper' multiply defined.
+
+
 LaTeX Warning: Label `fig:sub1' multiply defined.
 
 
@@ -1375,6 +1378,9 @@ LaTeX Warning: Label `sub@fig:sub2' multiply defined.
 
 
 LaTeX Warning: Label `fig:defIm2' multiply defined.
+
+
+LaTeX Warning: Label `A:1' multiply defined.
 
 )
 \openout1 = `relatorio.aux'.
@@ -1696,65 +1702,93 @@ e 147.
 (pdftex.def)             Requested size: 228.05826pt x 171.04314pt.
 [4 <./convergence-eps-converted-to.pdf> <./objSpace-eps-converted-to.pdf> <./pa
 rallel_coord-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <PS_convergence.eps>
+(epstopdf)                    date: 2020-12-19 15:53:56
+(epstopdf)                    size: 22828 bytes
+(epstopdf)             Output file: <PS_convergence-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-12-19 15:54:38
+(epstopdf)                    size: 17272 bytes
+(epstopdf)             Command: <repstopdf --outfile=PS_convergence-eps-convert
+ed-to.pdf PS_convergence.eps>
+(epstopdf)             \includegraphics on input line 170.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./PS_convergence-eps-converted-to.pdf): PDF incl
+usion: found PDF version <1.7>, but at most version <1.5> allowed
+<PS_convergence-eps-converted-to.pdf, id=154, 1339.16313pt x 716.19572pt>
+File: PS_convergence-eps-converted-to.pdf Graphic file (type pdf)
+<use PS_convergence-eps-converted-to.pdf>
+Package pdftex.def Info: PS_convergence-eps-converted-to.pdf  used on input lin
+e 170.
+(pdftex.def)             Requested size: 267.82788pt x 143.2366pt.
+[5 <./PS_convergence-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <PS_objSpace.eps>
-(epstopdf)                    date: 2020-12-19 10:06:44
-(epstopdf)                    size: 19527 bytes
+(epstopdf)                    date: 2020-12-19 15:54:12
+(epstopdf)                    size: 21227 bytes
 (epstopdf)             Output file: <PS_objSpace-eps-converted-to.pdf>
-(epstopdf)                    date: 2020-12-19 10:07:05
-(epstopdf)                    size: 21930 bytes
+(epstopdf)                    date: 2020-12-19 15:54:38
+(epstopdf)                    size: 17006 bytes
 (epstopdf)             Command: <repstopdf --outfile=PS_objSpace-eps-converted-
 to.pdf PS_objSpace.eps>
-(epstopdf)             \includegraphics on input line 181.
+(epstopdf)             \includegraphics on input line 187.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./PS_objSpace-eps-converted-to.pdf): PDF inclusi
 on: found PDF version <1.7>, but at most version <1.5> allowed
-<PS_objSpace-eps-converted-to.pdf, id=154, 1387.58403pt x 735.70862pt>
+<PS_objSpace-eps-converted-to.pdf, id=192, 1339.16313pt x 716.19572pt>
 File: PS_objSpace-eps-converted-to.pdf Graphic file (type pdf)
 <use PS_objSpace-eps-converted-to.pdf>
 Package pdftex.def Info: PS_objSpace-eps-converted-to.pdf  used on input line 1
-81.
-(pdftex.def)             Requested size: 228.05826pt x 120.91519pt.
+87.
+(pdftex.def)             Requested size: 228.05826pt x 121.95929pt.
 Package epstopdf Info: Source file: <PS_parallel_coord.eps>
-(epstopdf)                    date: 2020-12-19 10:07:00
-(epstopdf)                    size: 26096 bytes
+(epstopdf)                    date: 2020-12-19 15:54:26
+(epstopdf)                    size: 32632 bytes
 (epstopdf)             Output file: <PS_parallel_coord-eps-converted-to.pdf>
-(epstopdf)                    date: 2020-12-19 10:07:06
-(epstopdf)                    size: 8355 bytes
+(epstopdf)                    date: 2020-12-19 15:54:38
+(epstopdf)                    size: 7963 bytes
 (epstopdf)             Command: <repstopdf --outfile=PS_parallel_coord-eps-conv
 erted-to.pdf PS_parallel_coord.eps>
-(epstopdf)             \includegraphics on input line 187.
+(epstopdf)             \includegraphics on input line 193.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./PS_parallel_coord-eps-converted-to.pdf): PDF i
 nclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<PS_parallel_coord-eps-converted-to.pdf, id=155, 1387.58403pt x 735.70862pt>
+<PS_parallel_coord-eps-converted-to.pdf, id=193, 1339.16313pt x 716.19572pt>
 File: PS_parallel_coord-eps-converted-to.pdf Graphic file (type pdf)
 <use PS_parallel_coord-eps-converted-to.pdf>
 Package pdftex.def Info: PS_parallel_coord-eps-converted-to.pdf  used on input 
-line 187.
-(pdftex.def)             Requested size: 228.05826pt x 120.91519pt.
+line 193.
+(pdftex.def)             Requested size: 228.05826pt x 121.95929pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 199--202
+Underfull \hbox (badness 10000) in paragraph at lines 205--208
 
  []
 
-[5 <./PS_objSpace-eps-converted-to.pdf> <./PS_parallel_coord-eps-converted-to.p
-df>] [6]
-Underfull \hbox (badness 10000) in paragraph at lines 209--212
+[6 <./PS_objSpace-eps-converted-to.pdf> <./PS_parallel_coord-eps-converted-to.p
+df>]
+Underfull \hbox (badness 10000) in paragraph at lines 215--218
 
  []
 
 [7]
-Overfull \hbox (2.2907pt too wide) in paragraph at lines 272--272
+Overfull \hbox (2.2907pt too wide) in paragraph at lines 278--278
 []\T1/cmtt/m/n/12 from pymoo.util.termination.default import MultiObjectiveDefa
 ultTermination[] 
  []
 
+[8]
+Overfull \hbox (2.2907pt too wide) in paragraph at lines 337--337
+[]\T1/cmtt/m/n/12 from pymoo.util.termination.default import MultiObjectiveDefa
+ultTermination[] 
+ []
+
+[9]
 No file relatorio.bbl.
-[8] (./relatorio.aux)
+[10] (./relatorio.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1763,10 +1797,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 29609 strings out of 494789
- 627961 string characters out of 6177363
+ 29614 strings out of 494789
+ 628162 string characters out of 6177363
  656927 words of memory out of 5000000
- 32471 multiletter control sequences out of 15000+600000
+ 32475 multiletter control sequences out of 15000+600000
  555132 words of font info for 94 fonts, out of 8000000 for 9000
  83 hyphenation exceptions out of 8191
  55i,15n,67p,10360b,743s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1793,10 +1827,10 @@ ts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 r8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on relatorio.pdf (8 pages, 310714 bytes).
+Output written on relatorio.pdf (10 pages, 323559 bytes).
 PDF statistics:
- 590 PDF objects out of 1000 (max. 8388607)
- 151 compressed objects within 2 object streams
+ 637 PDF objects out of 1000 (max. 8388607)
+ 159 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 43 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 48 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -48,11 +48,10 @@ class MyProblem(Problem):
 problem = MyProblem()
 
 algorithm = PatternSearch(
-	explr_delta=0.1, 
-	explr_rho=0.1, 
-	pattern_step=2, 
-	eps=1e-12, 
-	# display=PatternSearchDisplay()
+	explr_delta=0.1,
+	explr_rho=0.3,
+	pattern_step=2,	
+	eps=1e-08
 	)
 
 from pymoo.util.termination.default import MultiObjectiveDefaultTermination

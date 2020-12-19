@@ -157,20 +157,26 @@ Finalmente, solução ideal é encontrada para a deformação $0.0023m$ e massa 
 
 Algoritmos de procura coordenada são métodos numéricos de optimização que não requerem gradientes. Essencialmente, o algoritmo varia um parametro teórico com passos com a mesma magnitude, é determinada a direcção que minimiza a função, o passo é divido por 2 e o processo é repetido até que os passos são considerados suficientemente pequenos. Para o problema foi escolhido algoritmo de Hooke and Jeeves.
 
-
 \subsection{Parametros do algoritmo relevantes}
 
-Os parametros mais relevantes são os coeficientes exploratórios e o comprimento 
+$Exploratory$ $delta$ é usado para o movimento exploratório, foi definido como 0.1 o que quer dizer que o padrão é inicialmente creado a 10\% do ponto inicial. $Exploratory$ $rho$ é usado para multiplicar pelo passo, no caso de o movimento exploratório ser mal sucedido. Neste caso 0.3 foi usado.
 
-%	explr_delta=0.1, 
-%	explr_rho=0.1, 
-%	pattern_step=2, 
-%	eps=1e-12, 
+\subsection{Convergencia}
 
+O metodo convergiu em 35 gerações e 310 calculos da funcção. Visto que que neste problema temos apenas 3 parametros a variar podemos usar o $Hypervolume$ como um indicador de performance. Ele compara o ponto de referencia arbritario com a solução encontrada. Estabilidade deste indicador mostrado na figura~\ref{fig:hyper} ajuda a confirmar convergencia.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.2]{PS_convergence.eps}
+\end{center}
+\caption{Indicador $Hypervolume$ em função do numero de avaliações da função}
+\label{fig:hyper}
+\end{figure}
 
 \subsection{Solução}
 
-O resultado do método é um conjunto de soluções numa frente de Pareto, resta agora escolher aquela que é mais adequada. Para isso usou-se um método de decomposição, onde, utilizando uns pesos adequados em função da importância dos objetivos, o problema multidimensional é avaliado como se só existisse um objetivo. Na figura~\ref{fig:defIm2}, podemos ver esse $trade-off$ entre a massa do sistema e a sua deformação do sistema de teste. A solução ideal é encontrada para a deformação $0.0043m$ e massa $0.0043kg$ com os parametros $a = 0.2840$ $b = 0.3016$ e $h = 0.0020$.
+O resultado do método é um conjunto de soluções numa frente de Pareto, resta agora escolher aquela que é mais adequada. Para isso usou-se um método de decomposição, onde, utilizando uns pesos adequados em função da importância dos objetivos, o problema multidimensional é avaliado como se só existisse um objetivo. Na figura~\ref{fig:defIm2}, podemos ver esse $trade-off$ entre a massa do sistema e a sua deformação do sistema de teste. A solução ideal é encontrada para a deformação $0.0028m$ e massa $0.0028kg$ com os parametros $a = 0.2765$ $b = 0.2941$ e $h = 0.0021$. \\
+A frente de Pareto gerada pelo algoritmo não minimiza o problema, ao contrário do algoritmo genético, pelo que esta heuristica não é a mais adequada para resolver este problema.
 
 
 
@@ -204,7 +210,7 @@ Com a análise da figura~\ref{fig:defIm2} é possível verificar que a aplicaç�
 
 \appendix
 
-\section{O código}\label{A:1}
+\section{O código NSGA2}\label{A:1}
 
 Neste apêndice está uma parte do código fonte que pode ser consultado na sua totalidade em:\\ https://github.com/RuiVieira89/top4ICT\\
 \\
@@ -271,6 +277,64 @@ res = minimize(problem,
 	)
 \end{verbatim}
 
+\newpage
+
+\section{O código procura coordenada}\label{A:1}
+
+\begin{verbatim}
+
+class MyProblem(Problem):
+
+	def __init__(self):
+		super().__init__(n_var=3, 
+			n_obj=2,
+			n_constr=2,
+			xl=np.array([0.25, 0.25, 0.001]),
+			xu=np.array([0.5, 0.5, 0.01]),
+			# elementwise_evaluation=True
+			)
+
+	def _evaluate(self, X, out, *args, **kwargs):
+
+		w, sigma_max = function(X) 
+		sysMass = np.prod(X, axis=1)*MaterialDensity
+
+		out["F"] = np.column_stack([w, sysMass])
+		out["G"] = np.column_stack([-w,-sysMass])
+
+problem = MyProblem()
+
+algorithm = PatternSearch(
+	explr_delta=0.1,
+	explr_rho=0.3,
+	pattern_step=2,	
+	eps=1e-08, 
+	)
+
+from pymoo.util.termination.default import MultiObjectiveDefaultTermination
+
+termination = MultiObjectiveDefaultTermination(
+    x_tol=1e-8,
+    cv_tol=1e-6,
+    f_tol=0.0025,
+    nth_gen=5,
+    n_last=30,
+    n_max_gen=1000,
+    n_max_evals=100000
+)
+
+from pymoo.optimize import minimize
+
+res = minimize(
+	problem, 
+	algorithm, 
+	termination, 
+	seed=1, 
+	save_history=True, 
+	verbose=True
+	)
+
+\end{verbatim}
 
 
 \bibliographystyle{plain.bst}
