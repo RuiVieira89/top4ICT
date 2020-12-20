@@ -1,0 +1,44 @@
+
+fminsearch X=[1.4383, -0.0155]; fval=2.0691 
+
+pattersearch X=[1.4385, -0.0063]; fval=2.0693 
+
+PSwarm X=[1.4383, -0.0155]; fval=2.0691 
+
+=================================================
+
+output = 
+
+  struct with fields:
+
+    iterations: 95
+     funcCount: 179
+     algorithm: 'Nelder-Mead simplex direct search'
+       message: 'Optimization terminated:↵ the current x satisfies the termination criteria using OPTIONS.TolX of 1.000000e-04 ↵ and F(X) satisfies the convergence criteria using OPTIONS.TolFun of 1.000000e-04 ↵'
+
+
+output1 = 
+
+  struct with fields:
+
+         function: @func
+      problemtype: 'unconstrained'
+       pollmethod: 'gpspositivebasis2n'
+    maxconstraint: []
+     searchmethod: []
+       iterations: 54
+        funccount: 188
+         meshsize: 9.5367e-07
+         rngstate: [1×1 struct]
+          message: 'Optimization terminated: mesh size less than options.MeshTolerance.'
+
+
+output2 = 
+
+  struct with fields:
+
+      rngstate: [1×1 struct]
+    iterations: 95
+     funccount: 1920
+       message: 'Optimization ended: relative change in the objective value ↵over the last OPTIONS.MaxStallIterations iterations is less than OPTIONS.FunctionTolerance.'
+    hybridflag: []

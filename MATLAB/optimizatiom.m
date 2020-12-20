@@ -50,16 +50,17 @@ for i=1:length(X)
     end
 end
 
-
 surf(X,Y,Z)
 hold on
 scatter3(x2(1), x2(2),fval2+5, 500,'.', 'r')
 
 shading interp
 
-x
-x1
-x2
+print = '\n%s X=[%.4f, %.4f]; fval=%.4f \n';
+fprintf(print, 'fminsearch', x(1), x(2), fval)
+fprintf(print, 'pattersearch', x1(1), x1(2), fval1)
+fprintf(print, 'PSwarm', x2(1), x2(2), fval2)
+
 
 
 
