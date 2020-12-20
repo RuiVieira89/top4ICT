@@ -152,53 +152,53 @@ Finalmente, solução ideal é encontrada para a deformação $0.0023m$ e massa 
 %\label{fig:test}
 \end{figure}
 
+\section{Otimização sem derivadas}
 
-\section{Solução do problema com procura coordenada}
+A função a ser minimizada é a~\ref{eq:OSDeq}. Esta não está sujeita a restrições e pode ser visualizada graficamente na figura~\ref{fig:funcf}.
 
-Algoritmos de procura coordenada são métodos numéricos de optimização que não requerem gradientes. Essencialmente, o algoritmo varia um parâmetro teórico com passos com a mesma magnitude, é determinada a direcção que minimiza a função, o passo é divido por 2 e o processo é repetido até que os passos são considerados suficientemente pequenos. Para o problema foi escolhido algoritmo de Hooke and Jeeves.
+\begin{equation}\label{eq:OSDeq}
+f= \max[ x^2 + y^2, (1.5 - x + x y)^2 + (2.25 - x + x y^2)^2 + (2.625 - x(1) + x y^3)^2 ]
+\end{equation}
 
-\subsection{parâmetros do algoritmo relevantes}
-
-$Exploratory$ $delta$ é usado para o movimento exploratório, foi definido como 0.1 o que quer dizer que o padrão é inicialmente criado a 10\% do ponto inicial. $Exploratory$ $rho$ é usado para multiplicar pelo passo, no caso de o movimento exploratório ser mal sucedido. Neste caso 0.3 foi usado.
-
-\subsection{Convergencia}
-
-O método convergiu em 35 gerações e 310 cálculos da funcção. Visto que que neste problema temos apenas 3 parâmetros a variar podemos usar o $Hypervolume$ como um indicador de performance. Ele compara o ponto de referencia arbritrário com a solução encontrada. Estabilidade deste indicador mostrado na figura~\ref{fig:hyper} ajuda a confirmar convergência.
+A equação~\ref{eq:OSDeq} não tem derivadas pelo que as funções MATLAB $fminsearch$, $pattersearch$ e $PSwarm$ foram utilizadas para resolver o problema.
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[scale=0.2]{PS_convergence.eps}
+\includegraphics[scale=0.3]{OSD.eps}
 \end{center}
-\caption{Indicador $Hypervolume$ em função do numero de avaliações da função}
-\label{fig:hyper}
-\end{figure}
-
-\subsection{Solução}
-
-O resultado do método é um conjunto de soluções numa frente de Pareto, resta agora escolher aquela que é mais adequada. Para isso usou-se um método de decomposição, onde, utilizando uns pesos adequados em função da importância dos objetivos, o problema multidimensional é avaliado como se só existisse um objetivo. Na figura~\ref{fig:defIm2}, podemos ver esse $trade-off$ entre a massa do sistema e a sua deformação do sistema de teste. A solução ideal é encontrada para a deformação $0.0028m$ e massa $0.0028kg$ com os parâmetros $a = 0.2765$ $b = 0.2941$ e $h = 0.0021$. \\
-A frente de Pareto gerada pelo algoritmo não minimiza o problema, ao contrário do algoritmo genético, pelo que esta heurística não é a mais adequada para resolver este problema.
-
-
-
-\begin{figure}[!htbp]
-\centering
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=.99\linewidth]{PS_objSpace.eps}
-  \caption{Frente de Pareto}
-  \label{fig:sub1}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=.99\linewidth]{PS_parallel_coord.eps}
-  \caption{Soluções em coordenadas paralelas}
-  \label{fig:sub2}
-\end{subfigure}
-\caption{\label{fig:defIm2}A solução mais equilibada está a vermelho}
-%\label{fig:test}
+\caption{Função $f$}
+\label{fig:funcf}
 \end{figure}
 
 
+\subsection{$fminsearch$}
+
+A função $fminsearch$ encontra  o  mínimo  de  uma  função  multidimensional  usando  o método  de Nelder-Mead simplex direct search. Na primeira iteração as variaveis tomam o valor de x\textsubscript{0}=0 e y\textsubscript{0}=0.
+Valor de x e y satisfazem o critériode paragem para $TolX$ de 1e-04 e f(x,y) satisfaz o critériode convergênciapara $TolFun$  de 1e-04 sendo  que  o processo  convergiu para  um  ponto estacionário. A solução aproximada encontrada toma o valor de 2.0691 para x=1.4383, y=-0.0155 e ocorre na 95ª iteração. 
+
+\subsection{$pattersearch$}
+
+
+A função $patternsearch$ calcula  o  mínimo  de  uma  função  multidimensional usando o método da pesquisa em padrão. Obteve-se um $exitflag=1$, ou seja, o método convergiu pois o tamanho da malha é menor que o limite estabelecido. Na 54ª iteração obtivemos o valor da função 2.0693 para x=1.4385, y=-0.0063
+
+\subsection{$particleswarm$}
+
+A função $particleswarm$ determina o mínimo de uma função iterativamente tentando melhorar à solução candidata segundo uma medida de qualidade. Essa medida neste caso foi a mudança relativa do valor da função objetivo. O algoritmo move as candidatas a soluções, ou partículas, num espaço de procura de acordo com uma posição e velocidade. \\
+Obteve-se um $exitflag=1$. Na 95ª iteração obtivemos o valor da função 2.0691 para x=1.4383, y=-0.0155
+
+\subsection{Comentários}
+
+Como é visível na tabela houve pouca dispersão de resultados nos diferentes métodos. O algoritmo com pior performance foi o $pattersearch$ apresentando o maior desvio especialmente no valor de y.
+
+\begin{center}
+\begin{tabular}{ c |c |c |c }
+ \textbf{Método} & \textbf{x} & \textbf{y} & \textbf{fVal} \\ 
+ \hline
+ $fminsearch$ & 1.4383 & -0.0155 & 2.0691 \\  
+ $pattersearch$ & 1.4385 & -0.0063 & 2.0693 \\
+ $particleswarm$ & 1.4383 & -0.0155 & 2.0691 
+\end{tabular}
+\end{center}
 
 \section{Conclusões}
 
@@ -279,62 +279,128 @@ res = minimize(problem,
 
 \newpage
 
-\section{O código procura coordenada}\label{A:1}
+\section{O código MATLAB}\label{A:1}
 
 \begin{verbatim}
 
-class MyProblem(Problem):
 
-	def __init__(self):
-		super().__init__(n_var=3, 
-			n_obj=2,
-			n_constr=2,
-			xl=np.array([0.25, 0.25, 0.001]),
-			xu=np.array([0.5, 0.5, 0.01]),
-			# elementwise_evaluation=True
-			)
+function Y = func(x)
 
-	def _evaluate(self, X, out, *args, **kwargs):
+    Y = max([x(1).^2 + x(2).^2, (1.5 - x(1) + x(1)*x(2)).^2 + ...
+        (2.25 - x(1) + x(1)*x(2).^2).^2 + ...
+        (2.625 - x(1) + x(1)*x(2).^3).^2]);
 
-		w, sigma_max = function(X) 
-		sysMass = np.prod(X, axis=1)*MaterialDensity
+end
 
-		out["F"] = np.column_stack([w, sysMass])
-		out["G"] = np.column_stack([-w,-sysMass])
 
-problem = MyProblem()
+close all
+clear all
+clc
 
-algorithm = PatternSearch(
-	explr_delta=0.1,
-	explr_rho=0.3,
-	pattern_step=2,	
-	eps=1e-08, 
-	)
 
-from pymoo.util.termination.default import MultiObjectiveDefaultTermination
 
-termination = MultiObjectiveDefaultTermination(
-    x_tol=1e-8,
-    cv_tol=1e-6,
-    f_tol=0.0025,
-    nth_gen=5,
-    n_last=30,
-    n_max_gen=1000,
-    n_max_evals=100000
-)
+%% fminsearch 
 
-from pymoo.optimize import minimize
+options = [];
 
-res = minimize(
-	problem, 
-	algorithm, 
-	termination, 
-	seed=1, 
-	save_history=True, 
-	verbose=True
-	)
+lb = [];
+ub = [];
+x0 = [0 0]; 
+
+fun = 'func';
+[x,fval,exitflag,output] = fminsearch(fun,x0,options);
+
+
+%% pattersearch 
+
+options = [];
+A = [];
+b = [];
+Aeq = [];
+beq = [];
+nonlcon = [];
+
+[x1,fval1,exitflag1,output1] = patternsearch(@func,x0,A,b,Aeq,beq,lb,ub,nonlcon,options);
+
+
+%% PSwarm
+
+nvars = 2;
+options = [];
+
+[x2,fval2,exitflag2,output2] = particleswarm(@func,nvars,lb,ub,options);
+
+%% PLOTS
+
+[X,Y] = meshgrid(-2:.1:2);     
+
+Z(length(X), length(Y)) = 0;
+
+for i=1:length(X)
+    for j=1:length(Y)
+        Z(i,j) = func([X(i), Y(j)]);
+    end
+end
+
+surf(X,Y,Z)
+hold on
+scatter3(x2(1), x2(2),fval2+5, 500,'.', 'r')
+
+shading interp
+
+print = '\n%s X=[%.4f, %.4f]; fval=%.4f \n';
+fprintf(print, 'fminsearch', x(1), x(2), fval)
+fprintf(print, 'pattersearch', x1(1), x1(2), fval1)
+fprintf(print, 'PSwarm', x2(1), x2(2), fval2)
+
 
 \end{verbatim}
+
+%\section{Solução do problema com procura coordenada}
+%
+%Algoritmos de procura coordenada são métodos numéricos de optimização que não requerem gradientes. Essencialmente, o algoritmo varia um parâmetro teórico com passos com a mesma magnitude, é determinada a direcção que minimiza a função, o passo é divido por 2 e o processo é repetido até que os passos são considerados suficientemente pequenos. Para o problema foi escolhido algoritmo de Hooke and Jeeves.
+%
+%\subsection{parâmetros do algoritmo relevantes}
+%
+%$Exploratory$ $delta$ é usado para o movimento exploratório, foi definido como 0.1 o que quer dizer que o padrão é inicialmente criado a 10\% do ponto inicial. $Exploratory$ $rho$ é usado para multiplicar pelo passo, no caso de o movimento exploratório ser mal sucedido. Neste caso 0.3 foi usado.
+%
+%\subsection{Convergencia}
+%
+%O método convergiu em 35 gerações e 310 cálculos da funcção. Visto que que neste problema temos apenas 3 parâmetros a variar podemos usar o $Hypervolume$ como um indicador de performance. Ele compara o ponto de referencia arbritrário com a solução encontrada. Estabilidade deste indicador mostrado na figura~\ref{fig:hyper} ajuda a confirmar convergência.
+%
+%\begin{figure}[h]
+%\begin{center}
+%\includegraphics[scale=0.2]{PS_convergence.eps}
+%\end{center}
+%\caption{Indicador $Hypervolume$ em função do numero de avaliações da função}
+%\label{fig:hyper}
+%\end{figure}
+%
+%\subsection{Solução}
+%
+%O resultado do método é um conjunto de soluções numa frente de Pareto, resta agora escolher aquela que é mais adequada. Para isso usou-se um método de decomposição, onde, utilizando uns pesos adequados em função da importância dos objetivos, o problema multidimensional é avaliado como se só existisse um objetivo. Na figura~\ref{fig:defIm2}, podemos ver esse $trade-off$ entre a massa do sistema e a sua deformação do sistema de teste. A solução ideal é encontrada para a deformação $0.0028m$ e massa $0.0028kg$ com os parâmetros $a = 0.2765$ $b = 0.2941$ e $h = 0.0021$. \\
+%A frente de Pareto gerada pelo algoritmo não minimiza o problema, ao contrário do algoritmo genético, pelo que esta heurística não é a mais adequada para resolver este problema.
+%
+%
+%
+%\begin{figure}[!htbp]
+%\centering
+%\begin{subfigure}{.5\textwidth}
+%  \centering
+%  \includegraphics[width=.99\linewidth]{PS_objSpace.eps}
+%  \caption{Frente de Pareto}
+%  \label{fig:sub1}
+%\end{subfigure}%
+%\begin{subfigure}{.5\textwidth}
+%  \centering
+%  \includegraphics[width=.99\linewidth]{PS_parallel_coord.eps}
+%  \caption{Soluções em coordenadas paralelas}
+%  \label{fig:sub2}
+%\end{subfigure}
+%\caption{\label{fig:defIm2}A solução mais equilibada está a vermelho}
+%%\label{fig:test}
+%\end{figure}
+
 
 
 \bibliographystyle{plain.bst}
