@@ -53,7 +53,7 @@ end
 
 surf(X,Y,Z)
 hold on
-scatter3(x2(1), x2(2),fval2+5, 500,'.', 'r')
+SPHERE (x2(1), x2(2),fval2, 100,'.', 'r')
 
 shading interp
 
